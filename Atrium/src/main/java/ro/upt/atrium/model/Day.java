@@ -1,4 +1,4 @@
-package main.java;
+package ro.upt.atrium.model;
 
 public enum Day {
     MONDAY,

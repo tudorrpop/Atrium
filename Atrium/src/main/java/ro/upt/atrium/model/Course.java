@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,14 +13,35 @@ import java.util.List;
 public class Course implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String courseID;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false, updatable = false)
+    private Long courseID;
 
-    private String name;
+    private String courseName;
 
-    @OneToMany(mappedBy = "course")
-    private List<Student> students;
+    private boolean visibility;
 
-    @OneToMany(mappedBy = "course")
-    private List<Slot> options;
+    private LocalDate preferencesDeadline, allocationDate;
+
+    private String imageURL;
+
+    public Course() {
+    }
+
+    public Course(String courseName, boolean visibility, String imageURL) {
+        this.courseName = courseName;
+        this.visibility = visibility;
+        this.preferencesDeadline = null;
+        this.imageURL = imageURL;
+
+        this.allocationDate = null;
+    }
+
+    public String getName() {
+        return courseName;
+    }
+
+    public boolean isVisibility() {
+        return visibility;
+    }
 }

@@ -9,14 +9,19 @@ import java.time.LocalTime;
 @Entity
 @Getter
 public class Slot implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-    private String slotID;
+    private Long slotID;
 
     private int capacity;
     private LocalTime hour;
     private Day day;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id") // Assuming there is a foreign key column in Slot referencing Course
+    private Course course;
 
     public Slot() {
     }

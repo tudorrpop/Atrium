@@ -4,20 +4,18 @@ import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
-public class Student implements Serializable {
+public class Student extends User implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String studentID;
-    private String username;
-    private String name;
-    private String email;
+    public Student() {
 
-    @OneToMany(mappedBy = "student")
-    private List<Slot> preferences;
+    }
 
+    public Student(String username, String email, String name, List<Slot> courses, List<Slot> preferences) {
+        super(username, email, name);
+    }
 }

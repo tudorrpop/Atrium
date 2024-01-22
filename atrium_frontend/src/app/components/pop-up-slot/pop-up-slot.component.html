@@ -1,0 +1,35 @@
+<html lang="en">
+    <body>
+            <div class="content">
+
+                <p style="color: white; font-size: 25px;">Create new slot</p>
+
+                <select class="form-select" aria-label="Default select example" [(ngModel)]="dayID">
+                    <option [ngValue]="null" selected>Select the desired day:</option>
+                    <option [ngValue]="1" >Monday</option>
+                    <option [ngValue]="2" >Tueasday</option>
+                    <option [ngValue]="3" >Wednesday</option>
+                    <option [ngValue]="4" >Thursday</option>
+                    <option [ngValue]="5" >Friday</option>
+                  </select>
+
+                  <select class="form-select" aria-label="Default select example" [(ngModel)]="timeID">
+                    <option [ngValue]="null" selected>Select the desired time:</option>
+                    <option [ngValue]="1" >08 - 10</option>
+                    <option [ngValue]="2" >10 - 12</option>
+                    <option [ngValue]="3" >12 - 14</option>
+                    <option [ngValue]="4" >14 - 16</option>
+                    <option [ngValue]="5" >16 - 18</option>
+                    <option [ngValue]="6" >18 - 20</option>
+                  </select>
+
+                  <div class="mb-3">
+                    <input style="background-color: #171A18; border: 2px solid #333; color: white; " type="name" 
+                    class="form-control" id="exampleFormControlInput1" [(ngModel)]="capacityS" placeholder="Capacity">
+                  </div>
+
+                  <button type="button" [disabled]="!timeID || !dayID || !capacityS" class="btn btn-primary" (click)="createSlot()">Save slot</button>
+
+            </div>
+    </body>
+</html>

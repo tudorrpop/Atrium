@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { PopUpProfessorComponent } from '../pop-up-professor/pop-up-professor.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -12,14 +11,10 @@ export class HomeComponent {
 
   title = 'angular-mateiral';
 
-  constructor(private dialogRef : MatDialog){}
+  constructor(private router : Router){}
 
   openCourseCreationDialiog(){
-    this.dialogRef.open(PopUpProfessorComponent,{
-      data : {
-        name : 'Samuel'
-      }
-    });
+    this.router.navigate(['/create-coursepage-professor']);
   }
 
 }

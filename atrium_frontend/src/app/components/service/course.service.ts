@@ -14,6 +14,7 @@ export class CourseService {
   constructor(private httpClient: HttpClient) { }
 
   public createCourse(course: Course): Observable<Course> {
+    console.log(course);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post<Course>(`${this.baseUrl}`, course, { headers });
   }

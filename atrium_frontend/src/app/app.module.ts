@@ -6,7 +6,7 @@ import { AuthenticationComponent } from './components/authentication/authenticat
 import { HomeComponent } from './components/home/home.component';
 
 import { RouterModule } from '@angular/router';
-import { PopUpProfessorComponent } from './components/pop-up-professor/pop-up-professor.component';
+import { PopUpSlotComponent } from './components/pop-up-slot/pop-up-slot.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -16,6 +16,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { CoursepageProfessorComponent } from './components/coursepage-professor/coursepage-professor.component';
+import { CreateCoursepageProfessorComponent } from './components/create-coursepage-professor/create-coursepage-professor.component';
 
 
 
@@ -24,7 +26,9 @@ import { MatInputModule } from '@angular/material/input';
     AppComponent,
     AuthenticationComponent,
     HomeComponent,
-    PopUpProfessorComponent
+    PopUpSlotComponent,
+    CoursepageProfessorComponent,
+    CreateCoursepageProfessorComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -37,8 +41,9 @@ import { MatInputModule } from '@angular/material/input';
     AppRoutingModule,
     MatDatepickerModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
   ],
+
   providers: [],
   bootstrap: [AppComponent]
 })

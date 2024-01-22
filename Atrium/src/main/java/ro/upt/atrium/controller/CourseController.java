@@ -17,7 +17,6 @@ public class CourseController {
 
     @PostMapping("/create")
     public ResponseEntity<Course> createCourse(@RequestBody Course course) {
-        System.out.println(course);
         System.out.println(course.getName());
         System.out.println(course.isVisibility());
         Course newCourse = courseService.createCourse(course);

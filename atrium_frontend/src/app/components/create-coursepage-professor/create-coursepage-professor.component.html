@@ -16,9 +16,17 @@
                         <input style="background-color: #303030; border-color: #303030; color: white;" type="name" class="form-control" [(ngModel)] = "courseName"  id="exampleFormControlInput1" placeholder="Name">
                     </div>
 
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label style="font-size: 20px;" for="formFile" class="form-label" >Choose courses profile picture:</label>
                         <input style="background-color: #303030; border-color: #303030; color: white;" class="form-control" type="file" id="formFile">
+                    </div> -->
+
+                    <div class="mb-3">
+                        <label style="font-size: 20px;" for="exampleFormControlInput1" class="form-label">Select the allocation algorithm:</label>
+                        <select style="background-color: #303030; border-color: #303030; color: white; " class="form-select" aria-label="Default select example" [(ngModel)]="algorithm">
+                            <option [ngValue]="1" >Standard Algorithm</option>
+                            <option [ngValue]="2" >Gale Shapley Algorithm</option>
+                        </select>
                     </div>
 
                     <div style="display: flex;" class="dates">
@@ -28,7 +36,7 @@
                         </div>
                         <div style="margin-left: 45px;" class="deadline">
                             <label class="form-label" >Allocation Deadline:</label><br>
-                            <input type="date" style="width: 150px; border-radius: 5px;" [(ngModel)]="allocationDate"/>
+                            <input type="date" style="width: 150px; border-radius: 5px;"/>
                         </div>
                     </div>
                 </div>
@@ -43,6 +51,7 @@
                                 <th scope="col">Day</th>
                                 <th scope="col">Time</th>
                                 <th scope="col">Capacity</th>
+                                <td></td>
                                 <td><i class="fa-solid fa-square-plus" (click)="openCourseCreationDialiog()"></i></td>
                               </tr>
                             </thead>
@@ -62,11 +71,11 @@
             </div>
 
             <div class="buttons">
-                <div style="display: inline-block; color: white;" class="form-check">
+                <!-- <div style="display: inline-block; color: white;" class="form-check">
                     <input class="form-check-input" type="checkbox" [(ngModel)] = "visibility" id="defaultCheck1">
                     <label class="form-check-label" for="defaultCheck1">Private</label>
-                </div>
-                    <button style="margin-left: 10px;" type="button" [disabled]="!courseName" class="btn btn-primary" (click)="createCourse()">Save changes</button>
+                </div> -->
+                    <button type="button" [disabled]="!courseName" class="btn btn-primary" (click)="createCourse()">Save changes</button>
                     <button style="margin-left: 10px;" type="button" class="btn btn-secondary" (click)="goHome()">Cancel</button>
             </div>
             

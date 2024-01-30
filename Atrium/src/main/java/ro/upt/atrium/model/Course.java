@@ -13,7 +13,6 @@ import java.util.List;
 public class Course implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private Long courseID;
 

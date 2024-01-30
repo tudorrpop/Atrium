@@ -3,21 +3,23 @@ import { Slot } from "./slot";
 export class Course {
     id: number | undefined;
 
-    visibility: boolean | undefined;
+    algorithm: Algorithm | undefined;
     courseName: String | undefined;
     preferencesDeadline: Date | undefined;
-    allocationDate: Date | undefined;
     slots: Slot[] | undefined;
 
-    constructor(visibility: boolean, 
-        courseName: String, 
+    // allocationDate: Date | undefined;
+    // visibility: boolean | undefined;
+
+    constructor(
+        courseName: String,
+        algorithm: Algorithm, 
         preferencesDeadline: Date, 
-        allocationDate: Date,
         slots: Slot[]) {
         this.id = Math.random();
         this.courseName = courseName;
+        this.algorithm = algorithm;
         this.preferencesDeadline = preferencesDeadline;
-        this.allocationDate = allocationDate;
         this.slots = slots
       }
 }

@@ -70,3 +70,12 @@ input::placeholder{
     color: white;
 }
 
+.form-select::placeholder{
+    color: white;
+}
+
+table{
+    font-family: 'YourDesiredFont', sans-serif;
+}
+
+

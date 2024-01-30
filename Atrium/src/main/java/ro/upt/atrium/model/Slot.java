@@ -11,7 +11,6 @@ import java.time.LocalTime;
 public class Slot implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private Long slotID;
 

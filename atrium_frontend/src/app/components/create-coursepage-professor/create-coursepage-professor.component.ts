@@ -17,10 +17,9 @@ import { SlotService } from '../service/slot.service';
 })
 export class CreateCoursepageProfessorComponent implements OnInit{
 
-    visibility!: boolean;
     courseName!: String;
+    algorithm!: Algorithm;
     preferencesDeadline!: Date;
-    allocationDate!: Date;
     slots: Slot[] = [];
   
     constructor(private courseService: CourseService, 
@@ -53,8 +52,8 @@ export class CreateCoursepageProfessorComponent implements OnInit{
     }
 
     createCourse(){
-      this.courseService.createCourse(new Course(this.visibility, this.courseName, 
-        this.preferencesDeadline, this.allocationDate, this.slots))
+      this.courseService.createCourse(new Course(this.courseName, this.algorithm,
+        this.preferencesDeadline, this.slots))
     }
 
     openCourseCreationDialiog(){

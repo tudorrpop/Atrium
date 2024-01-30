@@ -8,7 +8,6 @@ import lombok.Getter;
 public abstract class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private Long userID;
 

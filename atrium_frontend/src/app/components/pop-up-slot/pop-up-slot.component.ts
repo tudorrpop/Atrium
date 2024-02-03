@@ -1,9 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialogRef , MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { SlotService } from '../service/slot.service';
-import { DAY } from 'src/app/classes/day';
-import { TIME } from 'src/app/classes/time';
+import { Day } from 'src/app/classes/day';
+import { Time } from 'src/app/classes/time';
 import { Slot } from 'src/app/classes/slot';
 
 @Component({
@@ -19,18 +19,16 @@ export class PopUpSlotComponent implements OnInit{
 
   constructor(private slotService: SlotService, 
     private dialog: MatDialogRef<PopUpSlotComponent>, 
-    private router: Router,
-    @Inject(MAT_DIALOG_DATA) private data: any){
-    this.dayID = data?.dayID + 1 || null;
-    this.timeID = data?.timeID + 1 || null;
+    private router: Router){
+
   }
 
   ngOnInit(): void{
   }
 
     createSlot(): void {
-      const dayS: DAY | null = this.getDayEnumValue(this.dayID);
-      const timeS: TIME | null = this.getTimeEnumValue(this.timeID);
+      const dayS: Day | null = this.getDayEnumValue(this.dayID);
+      const timeS: Time | null = this.getTimeEnumValue(this.timeID);
 
 
       const slot = {
@@ -40,36 +38,36 @@ export class PopUpSlotComponent implements OnInit{
         capacity: this.capacityS
       };
 
-      this.slotService.setData(new Slot(Math.random(), 
+      this.slotService.setData(new Slot( 
       this.getDayEnumValue(this.dayID), 
       this.getTimeEnumValue(this.timeID), this.capacityS));
       
       this.dialog.close(true);
     }
 
-  getDayEnumValue(id: number | null): DAY {
+  getDayEnumValue(id: number | null): Day {
     switch (id) {
-      case 1: return DAY.MONDAY;
-      case 2: return DAY.TUESDAY;
-      case 3: return DAY.WEDNESDAY;
-      case 4: return DAY.THURSDAY;
-      case 5: return DAY.FRIDAY;
-  
-      default: return DAY.MONDAY;
+      case 1: return Day.MONDAY;
+      case 2: return Day.TUESDAY;
+      case 3: return Day.WEDNESDAY;
+      case 4: return Day.THURSDAY;
+      case 5: return Day.FRIDAY;
     }
+
+    throw new Error('Invalid option for day selection of the slots.');
   }
 
 
-  getTimeEnumValue(id: number | null): TIME {
+  getTimeEnumValue(id: number | null): Time {
     switch (id) {
-      case 1: return TIME.TIME_08_10;
-      case 2: return TIME.TIME_10_12;
-      case 3: return TIME.TIME_12_14;
-      case 4: return TIME.TIME_14_16;
-      case 5: return TIME.TIME_16_18;
-      case 6: return TIME.TIME_18_20;
-      
-      default: return TIME.TIME_08_10;
+      case 1: return Time.TIME_08_10;
+      case 2: return Time.TIME_10_12;
+      case 3: return Time.TIME_12_14;
+      case 4: return Time.TIME_14_16;
+      case 5: return Time.TIME_16_18;
+      case 6: return Time.TIME_18_20;
     }
+
+    throw new Error('Invalid option for time selection of the slots.');
   }
 }

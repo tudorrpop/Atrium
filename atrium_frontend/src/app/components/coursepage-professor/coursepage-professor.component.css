@@ -1,0 +1,79 @@
+.navbar {
+    background-color: #343D47;
+    height: 60px;
+    width: 100%;
+}
+
+.title{
+    font-size: 30px;
+    color: white;
+}
+
+
+.content{
+    margin-top: 30px;
+    width: 100%;
+    background-color: #171A18;
+    height: 550px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.course{
+    margin-top: 20px;
+    width: 600px;
+    height: 450px;
+}
+
+.buttons{
+    margin-top: 15px;
+    width: 600px;
+}
+
+.table{
+    width: 100%;
+    font-family: 'YourDesiredFont', sans-serif;
+}
+
+tbody {
+    max-height: 150px; 
+    overflow-y: auto;
+    display: block;
+}
+
+.slot{
+    width: 500px;
+}
+
+thead{
+    display: block;
+}
+
+th, tr, td{
+    width: 500px;
+    color: white;
+    background-color: #171A18;
+    border-bottom: 2px solid #303030;
+}
+
+tbody tr {
+    border-top: 2px solid #303030;
+}
+
+tbody th, tr, td{
+    border-bottom: none;
+}
+
+.back{
+    color: white;
+    background-color: #3c8ccc;
+    border: none;
+}
+
+.back:hover{
+    background-color: #3c7cb4;
+}
+
+

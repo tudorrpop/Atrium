@@ -6,9 +6,8 @@ import { CourseService } from '../service/course.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { PopUpSlotComponent } from '../pop-up-slot/pop-up-slot.component';
-import { DAY } from 'src/app/classes/day';
-import { TIME } from 'src/app/classes/time';
 import { SlotService } from '../service/slot.service';
+import { PopUpCourseEnrollmentComponent } from '../pop-up-course-enrollment/pop-up-course-enrollment.component';
 
 @Component({
   selector: 'app-create-coursepage-professor',
@@ -18,7 +17,7 @@ import { SlotService } from '../service/slot.service';
 export class CreateCoursepageProfessorComponent implements OnInit{
 
     courseName!: String;
-    algorithm!: Algorithm;
+    algorithm!: String;
     preferencesDeadline!: Date;
     slots: Slot[] = [];
   
@@ -52,8 +51,18 @@ export class CreateCoursepageProfessorComponent implements OnInit{
     }
 
     createCourse(){
-      this.courseService.createCourse(new Course(this.courseName, this.algorithm,
-        this.preferencesDeadline, this.slots))
+      const course = new Course(this.courseName, this.algorithm,
+        this.preferencesDeadline, this.slots);
+      this.courseService.createCourse(course)
+        .subscribe(
+          response => {
+            this.router.navigate(['/home']);
+          },
+          error => {
+            console.error('Error:', error);
+          }
+      );
+
     }
 
     openCourseCreationDialiog(){

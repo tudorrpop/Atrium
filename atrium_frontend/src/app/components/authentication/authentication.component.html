@@ -23,16 +23,16 @@
 
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">@</span>
-                    <input type="text" class="form-control" placeholder="Your E-mail" aria-label="Email" aria-describedby="basic-addon1">
+                    <input [(ngModel)]="username" type="text" class="form-control" placeholder="Your E-mail" aria-label="Email" aria-describedby="basic-addon1">
                 </div>
 
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">#</span>
-                    <input type="password" class="form-control" placeholder="Your Password" aria-label="Password" aria-describedby="basic-addon1">
+                    <input [(ngModel)]="password" type="password" class="form-control" placeholder="Your Password" aria-label="Password" aria-describedby="basic-addon1">
                 </div>     
                 
                 <div class="buttons">
-                    <button type="button" style="margin-top: 10px;" class="btn btn-outline-secondary" (click)="onButtonPressed()">Sign in</button>
+                    <button type="button" style="margin-top: 10px;" class="btn btn-outline-secondary" (click)="onSubmit()">Sign in</button>
 
                     <div class="form-check" style="margin-left: 30px; margin-top: 15px;">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">

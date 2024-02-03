@@ -5,12 +5,14 @@ import jakarta.persistence.OneToMany;
 import lombok.Getter;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 public class Professor extends User implements Serializable {
+
+    @OneToMany
+    private List<Course> courses;
 
     public Professor() {
     }

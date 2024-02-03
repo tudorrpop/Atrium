@@ -7,6 +7,5 @@ import java.util.Optional;
 
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
-    void deleteCourseByCourseID(Long CourseID);
-    Optional<Course> findCourseByCourseID(Long CourseID);
+    Optional<Course> findByCourseid(Long CourseID);
 }

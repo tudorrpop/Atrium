@@ -24,8 +24,8 @@
                     <div class="mb-3">
                         <label style="font-size: 20px;" for="exampleFormControlInput1" class="form-label">Select the allocation algorithm:</label>
                         <select style="background-color: #303030; border-color: #303030; color: white; " class="form-select" aria-label="Default select example" [(ngModel)]="algorithm">
-                            <option [ngValue]="1" >Standard Algorithm</option>
-                            <option [ngValue]="2" >Gale Shapley Algorithm</option>
+                            <option [ngValue]="'STANDARD_ALGORITHM'" >Standard Algorithm</option>
+                            <option [ngValue]="'GALE_SHAPLEY_ALGORITHM'" >Gale Shapley Algorithm</option>
                         </select>
                     </div>
 
@@ -43,7 +43,7 @@
 
                 
                     <div class="right">
-                        <p style="font-size: 20px; display: inline-block;" >Slots available:</p>
+                        <p style="font-size: 25px; display: inline-block;" >Slots available:</p>
                         <table class="table table-hover">
                             <thead>
                               <tr>
@@ -58,11 +58,26 @@
                             <tbody>
                               <tr *ngFor="let slot of slots; let i = index">
                                 <th scope="row">{{i + 1}}</th>
-                                <td>{{slot.day}}</td>
-                                <td>{{slot.time}}</td>
+                                <td [ngSwitch]="slot?.day">
+                                    <ng-container *ngSwitchCase="'MONDAY'">Monday</ng-container>
+                                    <ng-container *ngSwitchCase="'TUESDAY'">Tuesday</ng-container>
+                                    <ng-container *ngSwitchCase="'WEDNESDAY'">Wednesday</ng-container>
+                                    <ng-container *ngSwitchCase="'THURSDAY'">Thursday</ng-container>
+                                    <ng-container *ngSwitchCase="'FRIDAY'">Friday</ng-container>
+                                    <ng-container *ngSwitchDefault> - </ng-container>
+                                </td>
+                                <td [ngSwitch]="slot?.time">
+                                    <ng-container *ngSwitchCase="'TIME_08_10'">08 - 10</ng-container>
+                                    <ng-container *ngSwitchCase="'TIME_10_12'">10 - 12</ng-container>
+                                    <ng-container *ngSwitchCase="'TIME_12_14'">12 - 14</ng-container>
+                                    <ng-container *ngSwitchCase="'TIME_14_16'">14 - 16</ng-container>
+                                    <ng-container *ngSwitchCase="'TIME_16_18'">16 - 18</ng-container>
+                                    <ng-container *ngSwitchCase="'TIME_18_20'">18 - 20</ng-container>
+                                    <ng-container *ngSwitchDefault> - </ng-container>
+                                </td>
                                 <td>{{slot.capacity}}</td>
-                                <td><i class="fa-regular fa-pen-to-square" (click)="editSlot(slot.id)"></i></td>
-                                <td><i class="fa-solid fa-trash" (click)="removeSlot(slot.id)"></i></td>
+                                <td><i class="fa-regular fa-pen-to-square" (click)="editSlot(slot.id !== undefined ? slot.id : 0)"></i></td>
+                                <td><i class="fa-solid fa-trash" (click)="removeSlot(slot.id !== undefined ? slot.id : 0)"></i></td>
                               </tr>
                             </tbody>
                         </table>

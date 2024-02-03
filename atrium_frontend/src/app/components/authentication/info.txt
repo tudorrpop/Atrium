@@ -1,3 +1,0 @@
-1. Autentificare - user & parola -> api faculta
-2. raspuns eroare - auth failed
-3. raspuns corect - verific user - daca a nimic, daca nu create user

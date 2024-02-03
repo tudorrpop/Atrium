@@ -1,11 +1,13 @@
 package ro.upt.atrium.model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -13,35 +15,36 @@ import java.util.List;
 public class Course implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-    private Long courseID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long courseid;
 
+    @Getter
     private String courseName;
+    private String algorithm;
 
-    private boolean visibility;
+    private LocalDate preferencesDeadline;
+//
+//    @OneToOne
+//    private Professor professor;
 
-    private LocalDate preferencesDeadline, allocationDate;
+    @JsonIgnore
+    @OneToMany
+    private List<Student> students;
 
-    private String imageURL;
+    @OneToMany
+    private List<Slot> slots;
 
     public Course() {
     }
 
-    public Course(String courseName, boolean visibility, String imageURL) {
+    public Course(String courseName, String algorithm, LocalDate preferencesDeadline, List<Slot> slots) {
         this.courseName = courseName;
-        this.visibility = visibility;
-        this.preferencesDeadline = null;
-        this.imageURL = imageURL;
+        this.algorithm = algorithm;
+        this.preferencesDeadline = preferencesDeadline;
 
-        this.allocationDate = null;
+        this.students = new ArrayList<>();
+        this.slots = slots;
     }
 
-    public String getName() {
-        return courseName;
-    }
-
-    public boolean isVisibility() {
-        return visibility;
-    }
 }

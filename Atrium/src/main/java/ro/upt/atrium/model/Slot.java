@@ -11,34 +11,24 @@ import java.time.LocalTime;
 public class Slot implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-    private Long slotID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long slotid;
 
-    private int capacity;
-    private LocalTime hour;
+    @Enumerated(EnumType.STRING)
     private Day day;
 
-    @ManyToOne
-    @JoinColumn(name = "course_id") // Assuming there is a foreign key column in Slot referencing Course
-    private Course course;
+    @Enumerated(EnumType.STRING)
+    private Time time;
+    private int capacity;
 
     public Slot() {
     }
 
-    public Slot(int capacity, LocalTime hour, Day day) {
-        this.capacity = capacity;
-        this.hour = hour;
+    public Slot(Day day, Time time, int capacity) {
         this.day = day;
+        this.time = time;
+        this.capacity = capacity;
     }
 
-    @Override
-    public String toString() {
-        return "Slot{" +
-                "slotID='" + slotID + '\'' +
-                ", capacity=" + capacity +
-                ", hour=" + hour +
-                ", day=" + day +
-                '}';
-    }
 }

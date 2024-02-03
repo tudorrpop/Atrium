@@ -30,6 +30,7 @@
     overflow-y: auto;
 }
 
+
 .buttons{
     margin-top: 30px;
     align-self: center;
@@ -69,4 +70,14 @@ tr{
 input::placeholder{
     color: white;
 }
+
+.form-select::placeholder{
+    color: white;
+}
+
+table{
+    font-family: 'YourDesiredFont', sans-serif;
+    width: 100%;
+}
+
 

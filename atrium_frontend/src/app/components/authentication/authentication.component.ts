@@ -8,6 +8,17 @@ import { RequestHelper } from 'src/app/helpers/RequestHelper';
 })
 export class AuthenticationComponent {
 
+  username!: string;
+  password!: string;
+
+  constructor() {}
+
+  onSubmit() {
+  }
+
+
+
+
    requestHelper = new RequestHelper();
    
    onButtonPressed = async() =>{

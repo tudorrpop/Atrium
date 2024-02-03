@@ -18,6 +18,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CoursepageProfessorComponent } from './components/coursepage-professor/coursepage-professor.component';
 import { CreateCoursepageProfessorComponent } from './components/create-coursepage-professor/create-coursepage-professor.component';
+import { PopUpCourseEnrollmentComponent } from './components/pop-up-course-enrollment/pop-up-course-enrollment.component';
+import { PopUpCourseDeleteComponent } from './components/pop-up-course-delete/pop-up-course-delete.component';
 
 
 
@@ -28,7 +30,9 @@ import { CreateCoursepageProfessorComponent } from './components/create-coursepa
     HomeComponent,
     PopUpSlotComponent,
     CoursepageProfessorComponent,
-    CreateCoursepageProfessorComponent
+    CreateCoursepageProfessorComponent,
+    PopUpCourseEnrollmentComponent,
+    PopUpCourseDeleteComponent
   ],
   imports: [
     BrowserAnimationsModule,

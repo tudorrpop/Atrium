@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { PopUpCourseEnrollmentComponent } from '../pop-up-course-enrollment/pop-up-course-enrollment.component';
+import { Course } from 'src/app/classes/course';
+import { CourseService } from '../service/course.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -9,12 +14,52 @@ import { Router } from '@angular/router';
 
 export class HomeComponent {
 
+  courses: Course[] = [];
   title = 'angular-mateiral';
 
-  constructor(private router : Router){}
+  ngOnInit(): void {
+    this.getCourses();
+  }
+
+  constructor(private router : Router, private dialog: MatDialog, private courseService: CourseService){}
 
   openCourseCreationDialiog(){
     this.router.navigate(['/create-coursepage-professor']);
+  }
+
+  navigateToCourse(courseid: number| undefined ){
+    if (courseid !== undefined) {
+      this.router.navigate(['/coursepage-professor', courseid]);
+    } else {
+      // Handle the case where courseId is undefined
+      console.error('CourseId is undefined');
+    }
+  }
+
+  getCourses(): void {
+    this.courseService.getCourses().subscribe(
+      (response: Course[]) => {
+        this.courses = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  logout(){ 
+  }
+
+  openCourseEnrollmentDialiog(){
+    const dialogRef = this.dialog.open(PopUpCourseEnrollmentComponent);
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+
+      } else {
+        console.log('No element was added.');
+      }
+    });
   }
 
 }

@@ -1,15 +1,16 @@
-import { DAY } from "./day";
-import { TIME } from "./time";
+import { Day } from "./day";
+import { Time } from "./time";
 
 
 export class Slot {
-    id: number ;
-    day: DAY ;
-    time: TIME ;
+    id?: number ;
+    
+    day: Day ;
+    time: Time ;
     capacity: number;
 
-    constructor(id: number, day: DAY, time: TIME, capacity: number) {
-        this.id = id;
+    constructor(day: Day, time: Time, capacity: number) {
+        this.id = Math.random();
         this.day = day;
         this.time = time;
         this.capacity = capacity;

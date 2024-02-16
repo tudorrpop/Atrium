@@ -8,7 +8,13 @@ import ro.upt.atrium.repository.UserRepository;
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    @Autowired
+    public UserService(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
+
 
 
 }

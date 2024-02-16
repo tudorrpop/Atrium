@@ -5,13 +5,14 @@ import lombok.Getter;
 
 @Entity
 @Getter
-public abstract class User {
+public class User {
 
     @Id
     @Column(nullable = false, updatable = false)
     private Long userID;
 
     private String username;
+    private String password;
     private String email;
     private String name;
 

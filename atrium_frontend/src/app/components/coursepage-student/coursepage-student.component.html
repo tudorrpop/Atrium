@@ -1,0 +1,41 @@
+<app-navbar></app-navbar>
+  <div class="content-wrapper">
+
+    <div class="content">
+
+      <div class="information">
+          <p style="font-size: 25px; color: white;" >Course Name: Analiza Matematica</p>
+          <p style="font-size: 25px; color: white;" >Teaching Professor: Petru Mihancea</p>
+          <p style="font-size: 25px; color: white;" >Preferences Deadline: 12.02.2024</p>
+          <p style="font-size: 25px; color: white;" [ngSwitch]="option?.course?.algorithm">
+            Students Allocation Algorithm:
+            <ng-container *ngSwitchCase="'STANDARD_ALGORITHM'">Standard Algorithm</ng-container>
+            <ng-container *ngSwitchCase="'GALE_SHAPLEY_ALGORITHM'">Gale Shapley Algorithm</ng-container>
+            <ng-container *ngSwitchDefault> Standard Algorithm </ng-container>                    
+          </p>
+      </div>
+  
+      <div class="options" cdkDropListGroup>
+          <div class="example-container">
+              <h2 style="color: white;">My preferred slots</h2>
+              <div cdkDropList [cdkDropListData]="todo" class="example-list" (cdkDropListDropped)="drop($event)" >
+                <div *ngFor="let item of todo; let i = index" class="example-box" cdkDrag>{{ item }}  <i style="margin-right: 10px;" class="fa-solid fa-bars"></i></div>
+              </div>
+          </div>
+            
+          <div class="example-container">
+              <h2 style="color: white;">All available slots</h2>
+              <div cdkDropList [cdkDropListData]="done" class="example-list" (cdkDropListDropped)="drop($event)">
+                <div *ngFor="let item of done; let i = index" class="example-box" cdkDrag>{{ item }} <i style="margin-right: 10px;" class="fa-solid fa-bars"></i></div>
+              </div>
+          </div>
+      </div>
+    
+      <div class="buttons">
+        <button style="margin-right: 10px;" type="button" class="btn btn-primary back" (click)="goHome()">Back</button>
+        <button style="margin-right: 10px;" type="button" class="btn btn-success start" (click)="allocateStudents()">Save changes</button>
+        <button type="button" class="btn btn-secondary delete" (click)="deleteCourse()">Drop Course</button>
+      </div>
+    </div>
+
+  </div>

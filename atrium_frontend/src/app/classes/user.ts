@@ -3,5 +3,7 @@ export class User {
     
     email!: String;
     name!: String;
+    username!: String;
+    password!: String;
     role!: String;
 }

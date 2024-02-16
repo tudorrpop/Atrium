@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { PopUpCourseEnrollmentComponent } from '../pop-up-course-enrollment/pop-up-course-enrollment.component';
 import { Course } from 'src/app/classes/course';
 import { CourseService } from '../service/course.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../service/auth-service';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,7 @@ export class HomeComponent {
     this.getCourses();
   }
 
-  constructor(private router : Router, private dialog: MatDialog, private courseService: CourseService){}
+  constructor(private router : Router, private dialog: MatDialog, private courseService: CourseService, private authService: AuthService){}
 
   openCourseCreationDialiog(){
     this.router.navigate(['/create-coursepage-professor']);
@@ -47,8 +48,11 @@ export class HomeComponent {
     );
   }
 
-  logout(){ 
-  }
+  // Example: In a component or service
+async logout(): Promise<void> {
+  await this.authService.logout();
+}
+
 
   openCourseEnrollmentDialiog(){
     const dialogRef = this.dialog.open(PopUpCourseEnrollmentComponent);

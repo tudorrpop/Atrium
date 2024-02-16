@@ -1,7 +1,55 @@
-.content{
-    width: 600px;
-    height: 500px;
-
-    
+html, body{
+    background-color: #171A18;
 }
 
+.content {
+    width: 600px;
+    height: 400px;
+    background-color: #171A18;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    background-color: #171A18; /* Set your preferred form background color */
+    padding: 5px;
+    width: 600px;
+    height: 70px;
+}
+
+.fa-search {
+    margin-right: 10px;
+    color: #333; /* Set your preferred icon color */
+}
+
+.form-input {
+    border: none;
+    outline: none;
+    width: 600px;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 3px;
+    background-color: #333; /* Set your preferred input background color */
+    color: white; /* Set your preferred text color */
+}
+
+.form-input::placeholder {
+    color: white; /* Set your preferred placeholder color */
+}
+
+.courses {
+    height: 330px;
+    overflow-y: auto;
+}
+
+
+th, tr, td{
+    color: white;
+    background-color: #171A18;
+    border-bottom: 2px solid #303030;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #303030a2;
+  }

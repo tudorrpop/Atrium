@@ -71,12 +71,14 @@ input::placeholder{
     color: white;
 }
 
-.form-select::placeholder{
+.form-select{
+    background-color: #303030; 
+    border-color: #303030; 
     color: white;
 }
 
 table{
-    font-family: 'YourDesiredFont', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     width: 100%;
 }
 

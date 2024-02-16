@@ -8,15 +8,15 @@
         <div class="content">
             <!-- Headerul continutului principal -->
             <div class="header">
-                <p style="color: white; font-size: 35px; margin-left: 20px; margin-top: 5px; display: inline-block;">Your current courses</p>
-                <button type="button" style="right: 0; position: absolute; margin-top: 15px; margin-right: 50px; " class="btn btn-outline-secondary" (click) = "openCourseCreationDialiog()">Create Course</button>        
+                <p style="color: white; font-size: 35px; margin-left: 20px; margin-top: 15px; display: inline-block;">Your current courses</p>
+                <button type="button" style="right: 0; position: absolute; margin-top: 25px; margin-right: 50px; " class="btn btn-outline-secondary" (click) = "openCourseCreationDialiog()">Create Course</button>        
                 <button hidden="true" type="button" style="right: 0; position: absolute; margin-top: 15px; margin-right: 50px; " class="btn btn-outline-secondary" (click) = "openCourseEnrollmentDialiog()">Enroll Course</button>        
             </div>
 
             <!-- Containerul de carduri -->
-            <div class="home" class="row">  
+            <div class="row">  
                 <p style="font-style: italic; font-size: 20px; font-family: 'YourDesiredFont', sans-serif; color: white; margin-left: 100px; margin-top: 50px;" [hidden]="courses.length !== 0">no courses to be displayed ..</p>
-                <div class="cards" *ngFor="let course of courses" class="col-md-6 col-xl-3 col-sm-3">
+                <div class="cards" *ngFor="let course of courses" class="col-md-6 col-xl-3 col-sm-5">
 
                     <div class="card" (click)="navigateToCourse(course.courseid)">
                         <div class="card-header">

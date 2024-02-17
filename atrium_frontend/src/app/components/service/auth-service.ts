@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/classes/user';
@@ -16,13 +16,15 @@ export class AuthService {
     auth: {
       clientId: '5edda4ee-b47b-42c4-af0d-88e57ae594aa',
       authority: 'https://login.microsoftonline.com/6bb41fe4-40a3-4a10-b6cd-38278e78b21a',
-      redirectUri: 'http://localhost:4200/home',
+      redirectUri: 'http://localhost:4200', // - de intrebat redirectUri -
     },
   };
 
   private msalInstance: msal.PublicClientApplication;
 
-  constructor(private router: Router) {
+  user: User | undefined;
+
+  constructor(private router: Router, private httpClient: HttpClient) {
     this.msalInstance = new msal.PublicClientApplication(this.msalConfig);
   }
 
@@ -44,7 +46,30 @@ export class AuthService {
       if (loginResponse && loginResponse.account) {
         // Set the active account
         this.msalInstance.setActiveAccount(loginResponse.account);
+
+        console.log('Username: ', this.msalInstance.getActiveAccount()?.username);
+        console.log('Name: ', this.msalInstance.getActiveAccount()?.name);
+
+
+
+
+        // CHECK USER
+        this.checkUser(this.msalInstance.getActiveAccount()?.username, this.msalInstance.getActiveAccount()?.name).subscribe(
+          (user: User) => {
+            this.user = user;
+            console.log(this.user);
+          },
+          (error) => {
+            console.error('Error fetching user:', error);
+          }
+        );
+        // CHECK USER
   
+
+
+
+
+
         // Redirect to home page or perform other post-login actions
         this.router.navigate(['/home']);
       } else {
@@ -61,6 +86,14 @@ export class AuthService {
       console.error('Authentication error:', error);
       // Handle other authentication errors as needed
     }
+  }
+
+  public checkUser(email: string | undefined, uname: string | undefined): Observable<User>{
+    const params = new HttpParams()
+        .set('email', email || '')
+        .set('name', uname || '');
+
+    return this.httpClient.get<User>(`http://localhost:8083/checkUser`, { params });
   }
   
   
@@ -115,15 +148,20 @@ export class AuthService {
     }
   }
   
+  async isLoggedIn(): Promise<boolean> {
+    console.log('Checking isLoggedIn...');
+    
+    await this.msalInstance.initialize(); // Ensure MSAL is initialized
 
+    const activeAccount = this.msalInstance.getActiveAccount();
 
-
-  isLoggedIn(): boolean{
-    if (this.msalInstance.getActiveAccount() == null) {
-      console.log('not logged in!')
+    if (activeAccount == null) {
+      console.log('User not logged in!');
       return false;
     }
 
+    console.log('User is logged in:', activeAccount);
     return true;
   }
+
 }

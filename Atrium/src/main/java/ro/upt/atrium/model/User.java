@@ -3,16 +3,17 @@ package ro.upt.atrium.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.io.Serializable;
+
 @Entity
 @Getter
-public class User {
+public class User implements Serializable {
 
     @Id
     @Column(nullable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userID;
 
-    private String username;
-    private String password;
     private String email;
     private String name;
 
@@ -20,8 +21,7 @@ public class User {
 
     }
 
-    public User(String username, String email, String name) {
-        this.username = username;
+    public User(String email, String name) {
         this.email = email;
         this.name = name;
     }

@@ -29,17 +29,4 @@ export class AuthenticationComponent {
       console.error('Authentication error:', error);
     }
   }
-
-  //  requestHelper = new RequestHelper();
-   
-  //  onButtonPressed = async() =>{
-
-  //   let resp;
-  //   try{
-  //     resp = await this.requestHelper.getData1("https://api.publicapis.org/entries");
-  //     console.log(resp.data.entries);
-  //   } catch(e){
-  //     console.log("failed!!!");
-  //   }
-  // }
 }

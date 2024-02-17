@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './components/service/auth-service';
 
@@ -9,15 +9,22 @@ import { AuthService } from './components/service/auth-service';
 
 export class MsalGuard implements CanActivate {
 
-  constructor(private authService: AuthService){
+  constructor(private authService: AuthService, private router: Router){
 
   }
   
-  canActivate(
+  async canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    state: RouterStateSnapshot): Promise<boolean | UrlTree> {
 
-      return this.authService.isLoggedIn();
+      const isAuthenticated = await this.authService.isLoggedIn();
+
+    if (isAuthenticated) {
+      return true;
+    } else {
+      // Redirect to the authentication page if not logged in
+      return this.router.createUrlTree(['/authentication']);
+    }
   }
   
 }

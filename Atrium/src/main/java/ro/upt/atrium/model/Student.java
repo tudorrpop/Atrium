@@ -15,7 +15,7 @@ public class Student extends User implements Serializable {
 
     }
 
-    public Student(String username, String email, String name, List<Slot> courses, List<Slot> preferences) {
-        super(username, email, name);
+    public Student(String email, String name) {
+        super(email, name);
     }
 }

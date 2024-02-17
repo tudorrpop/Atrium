@@ -17,7 +17,7 @@ public class Professor extends User implements Serializable {
     public Professor() {
     }
 
-    public Professor(String username, String email, String name) {
-        super(username, email, name);
+    public Professor(String email, String name) {
+        super(email, name);
     }
 }

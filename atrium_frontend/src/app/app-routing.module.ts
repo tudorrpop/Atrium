@@ -11,7 +11,7 @@ import { MsalGuard } from './msal.guard';
 const routes: Routes = [
   // { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'authentication', component: AuthenticationComponent },
-  { path: 'home', component: HomeComponent},
+  { path: 'home', component: HomeComponent, canActivate: [MsalGuard]},
   { path: 'coursepage-professor/:courseId', component: CoursepageProfessorComponent },
   { path: 'coursepage-student', component: CoursepageStudentComponent },
   { path: 'pop-up-delete/:courseId', component: PopUpCourseDeleteComponent },

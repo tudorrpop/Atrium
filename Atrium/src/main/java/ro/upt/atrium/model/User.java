@@ -4,25 +4,29 @@ import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Date;
 
-@Entity
 @Getter
-public class User implements Serializable {
+@MappedSuperclass
+public abstract class User{
 
-    @Id
-    @Column(nullable = false, updatable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userID;
-
+    @Getter
     private String email;
+    private String username;
     private String name;
+    private LocalDate joinDate;
+
 
     public User() {
 
     }
 
-    public User(String email, String name) {
+    public User(String email, String name, String username, LocalDate joinDate) {
         this.email = email;
         this.name = name;
+        this.username = username;
+        this.joinDate = joinDate;
     }
+
 }

@@ -1,0 +1,35 @@
+.navbar {
+    background-color: #343D47;
+    height: 60px;
+    width: 100%;
+}
+
+.content{
+    margin-top: 30px;
+    width: 100%;
+    background-color: #171A18;
+    height: 550px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.information{
+    width: 900px;
+}
+
+table {
+    font-size: 20px;
+    width: 900px;   
+    height: 90px;
+    border-collapse: collapse;
+}
+
+tr, td{
+    color: white;
+    border-bottom: 1px solid #dddddd15;
+    background-color: #303030;
+    text-align: left;
+    padding: 10px;
+}

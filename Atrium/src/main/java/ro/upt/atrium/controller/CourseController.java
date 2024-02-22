@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ro.upt.atrium.model.Course;
-import ro.upt.atrium.model.Slot;
+import ro.upt.atrium.model.*;
 import ro.upt.atrium.service.CourseService;
 import ro.upt.atrium.service.SlotService;
+import ro.upt.atrium.service.UserService;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,9 +21,18 @@ public class CourseController {
     private CourseService courseService;
     @Autowired
     private SlotService slotService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/all")
-    public ResponseEntity<List<Course>> getAllCourses() {
+    public ResponseEntity<List<Course>> getAllCourses(@RequestParam String email) {
+
+        User user = userService.getUser(email);
+        if (user instanceof Student){
+            System.out.println("sunt student");
+        } else if (user instanceof Professor) {
+            System.out.println("sunt student");
+        }
         List<Course> courses = courseService.getAllCourses();
         System.out.println(courses);
         return new ResponseEntity<>(courses, HttpStatus.OK);

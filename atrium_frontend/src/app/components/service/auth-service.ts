@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/classes/user';
 import * as msal from '@azure/msal-browser';
 import { Router } from '@angular/router';
+import { Student } from 'src/app/classes/student';
+import { Professor } from 'src/app/classes/professor';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +27,10 @@ export class AuthService {
 
   user: User | undefined;
 
-  constructor(private router: Router, private httpClient: HttpClient) {
+  constructor(private router: Router, 
+    private httpClient: HttpClient,
+    private cookieService: CookieService) {
+
     this.msalInstance = new msal.PublicClientApplication(this.msalConfig);
   }
 
@@ -38,40 +44,23 @@ export class AuthService {
         scopes: ['user.read'],
       };
   
-      // Initiate the login popup
+      // Initiate the login popupxm
       const loginResponse = await this.msalInstance.loginPopup(loginRequest);
       console.log('Login Response', loginResponse);
   
       // Check if the login was successful
       if (loginResponse && loginResponse.account) {
         // Set the active account
-        this.msalInstance.setActiveAccount(loginResponse.account);
+         this.msalInstance.setActiveAccount(loginResponse.account);
 
-        console.log('Username: ', this.msalInstance.getActiveAccount()?.username);
-        console.log('Name: ', this.msalInstance.getActiveAccount()?.name);
+          this.cookieService.set('name', this.msalInstance.getActiveAccount()?.name ?? '- no name -');
+          this.cookieService.set('email', this.msalInstance.getActiveAccount()?.username ?? '- no email -');
 
+          this.checkUser(this.msalInstance.getActiveAccount()?.username, this.msalInstance.getActiveAccount()?.name);
 
-
-
-        // CHECK USER
-        this.checkUser(this.msalInstance.getActiveAccount()?.username, this.msalInstance.getActiveAccount()?.name).subscribe(
-          (user: User) => {
-            this.user = user;
-            console.log(this.user);
-          },
-          (error) => {
-            console.error('Error fetching user:', error);
-          }
-        );
-        // CHECK USER
+          this.router.navigate(['/home-student']);
   
-
-
-
-
-
-        // Redirect to home page or perform other post-login actions
-        this.router.navigate(['/home']);
+        
       } else {
         // Handle other scenarios or errors after login
         console.warn('Unexpected login response:', loginResponse);
@@ -88,12 +77,12 @@ export class AuthService {
     }
   }
 
-  public checkUser(email: string | undefined, uname: string | undefined): Observable<User>{
+  public checkUser(email: string | undefined, uname: string | undefined): void{
     const params = new HttpParams()
         .set('email', email || '')
         .set('name', uname || '');
 
-    return this.httpClient.get<User>(`http://localhost:8083/checkUser`, { params });
+    this.httpClient.post<User>(`http://localhost:8083/checkUser`, { params });
   }
   
   
@@ -118,6 +107,10 @@ export class AuthService {
       };
   
       const tokenResponse = await this.msalInstance.acquireTokenSilent(tokenRequest);
+      
+      this.cookieService.set('accessToken', tokenResponse.accessToken)
+      localStorage.setItem('token', tokenResponse.accessToken);
+
       console.log('Token Response', tokenResponse);
   
       // Handle token response as needed

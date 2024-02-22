@@ -7,7 +7,10 @@
                 </div>
 
                 <div class="courses">
-                    <table class="table table-hover">
+
+                    <p style="font-style: italic; font-size: 20px; font-family: 'YourDesiredFont', sans-serif; color: white; margin-left: 100px; margin-top: 50px;" [hidden]="courses.length !== 0">no courses to be displayed ..</p>
+
+                    <table class="table table-hover" [hidden]="courses.length == 0">
                         <tbody>
                           <tr *ngFor="let course of courses; let i = index">
                             <th scope="row">{{i + 1}}</th>

@@ -51,5 +51,7 @@ export class PopUpCourseEnrollmentComponent implements OnInit{
     this.courses = results;
   }
 
+  
+
 
 }

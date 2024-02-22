@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Course } from 'src/app/classes/course';
+import { AuthService } from './auth-service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,12 +14,26 @@ import { Course } from 'src/app/classes/course';
 export class CourseService {
 
   private baseUrl="http://localhost:8083";
+  private readonly headers: HttpHeaders;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+    private cookieService: CookieService) { 
+
+      // const accessToken = this.cookieService.get('yourAccessTokenCookieName');
+
+      // if (!accessToken) {
+      //   console.error('Access token not available.');
+      // }
+  
+      this.headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        // 'Authorization': `Bearer ${accessToken}`
+      });
+  }
 
 
   public getCourses(): Observable<Course[]> {
-    return this.httpClient.get<Course[]>('http://localhost:8083/all');
+    return this.httpClient.get<Course[]>(`${this.baseUrl}/all`, { headers: this.headers });
   }
 
   public getCourse(courseid: number | undefined): Observable<Course>{

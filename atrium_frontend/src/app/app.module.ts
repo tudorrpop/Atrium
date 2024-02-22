@@ -24,6 +24,8 @@ import { CoursepageStudentComponent } from './components/coursepage-student/cour
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { MsalModule } from '@azure/msal-angular';
+import { ProfilepageComponent } from './components/profilepage/profilepage.component';
+import { HomeStudentComponent } from './components/home-student/home-student.component';
 
 
 @NgModule({
@@ -38,7 +40,9 @@ import { MsalModule } from '@azure/msal-angular';
     PopUpCourseEnrollmentComponent,
     PopUpCourseDeleteComponent,
     CoursepageStudentComponent,
-    NavbarComponent
+    NavbarComponent,
+    ProfilepageComponent,
+    HomeStudentComponent
   ],
 
   imports: [

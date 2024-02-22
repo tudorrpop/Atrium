@@ -1,15 +1,21 @@
 package ro.upt.atrium.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 public class Professor extends User implements Serializable {
+
+    @Id
+    @Column(nullable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long professorID;
 
     @OneToMany
     private List<Course> courses;
@@ -17,7 +23,8 @@ public class Professor extends User implements Serializable {
     public Professor() {
     }
 
-    public Professor(String email, String name) {
-        super(email, name);
+    public Professor(String email, String name, String username, LocalDate joindate) {
+        super(email, name, username, joindate);
+        this.courses = new ArrayList<>();
     }
 }

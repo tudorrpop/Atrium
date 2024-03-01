@@ -16,10 +16,10 @@ public class Student extends User implements Serializable {
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long studentID;
+    private Long studentid;
 
     @OneToMany
-    private List<Choice> options;
+    private List<Choice> choices;
 
 
     public Student() {
@@ -28,6 +28,13 @@ public class Student extends User implements Serializable {
 
     public Student(String email, String name, String username, LocalDate joinDate) {
         super(email, name, username, joinDate);
-        this.options = new ArrayList<>();
+        this.choices = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentid=" + studentid +
+                '}';
     }
 }

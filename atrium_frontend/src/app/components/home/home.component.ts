@@ -48,7 +48,9 @@ export class HomeComponent {
 
   getCourses(): void {
 
-    this.courseService.getCourses().subscribe(
+    let professorEmail: string = this.cookieService.get('email');
+
+    this.courseService.getCourses(professorEmail).subscribe(
       (response: Course[]) => {
         this.courses = response;
       },
@@ -56,24 +58,6 @@ export class HomeComponent {
         alert(error.message);
       }
     );
-  }
-
-  // Example: In a component or service
-async logout(): Promise<void> {
-  await this.authService.logout();
-}
-
-
-  openCourseEnrollmentDialiog(){
-    const dialogRef = this.dialog.open(PopUpCourseEnrollmentComponent);
-
-    dialogRef.afterClosed().subscribe((result: boolean) => {
-      if (result) {
-
-      } else {
-        console.log('No element was added.');
-      }
-    });
   }
 
 }

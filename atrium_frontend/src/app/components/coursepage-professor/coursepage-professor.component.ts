@@ -17,13 +17,16 @@ export class CoursepageProfessorComponent {
   courseid: number | undefined;
   course: Course| undefined;
 
-  constructor(private courseService: CourseService, private router: Router, private route: ActivatedRoute, private dialog: MatDialog){}
+  constructor(private courseService: CourseService, 
+    private router: Router, 
+    private route: ActivatedRoute, 
+    private dialog: MatDialog){}
 
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.courseid = +params.get('courseId')!;
-        this.getCourse(this.courseid)
+        this.getCourse(this.courseid);
     });
   }
 
@@ -57,6 +60,7 @@ export class CoursepageProfessorComponent {
     this.courseService.getCourse(courseid).subscribe(
       (response: Course) => {
         this.course = response;
+        console.log(response);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

@@ -11,7 +11,7 @@
 
             <!-- Containerul de carduri -->
             <div class="row">  
-                <p style="font-style: italic; font-size: 20px; font-family: 'YourDesiredFont', sans-serif; color: white; margin-left: 100px; margin-top: 50px;" [hidden]="courses.length !== 0">no courses to be displayed ..</p>
+                <p style="font-style: italic; font-size: 20px; font-family: 'Calibri', regular; color: white; margin-left: 100px; margin-top: 50px;" [hidden]="courses.length !== 0">no courses to be displayed ..</p>
                 <div class="cards" *ngFor="let course of courses" class="col-md-6 col-xl-3 col-sm-5">
 
                     <div class="card" (click)="navigateToCourse(course.courseid)">

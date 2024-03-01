@@ -1,4 +1,6 @@
+import { Professor } from "./professor";
 import { Slot } from "./slot";
+import { User } from "./user";
 
 export class Course {
 
@@ -8,6 +10,8 @@ export class Course {
     courseName: string | undefined;
     preferencesDeadline: Date | undefined;
     slots: Slot[] | undefined;
+
+    professor: Professor | undefined;
 
     constructor(
         courseName: string,

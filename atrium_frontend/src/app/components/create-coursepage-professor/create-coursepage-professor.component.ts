@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { PopUpSlotComponent } from '../pop-up-slot/pop-up-slot.component';
 import { SlotService } from '../service/slot.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-create-coursepage-professor',
@@ -24,6 +25,7 @@ export class CreateCoursepageProfessorComponent implements OnInit{
         private slotService: SlotService, 
         private dialog: MatDialog, 
         private router: Router,
+        private cookieService: CookieService
       ){}
   
     ngOnInit(): void{ 
@@ -62,7 +64,10 @@ export class CreateCoursepageProfessorComponent implements OnInit{
     createCourse(){
       const course = new Course(this.courseName, this.algorithm,
         this.preferencesDeadline, this.slots);
-      this.courseService.createCourse(course)
+
+      let professorEmail: string = this.cookieService.get('email');
+        
+      this.courseService.createCourse(course, professorEmail)
         .subscribe(
           response => {
             this.router.navigate(['/home']);

@@ -28,8 +28,12 @@ public class CourseService {
         return courseRepository.findAll();
     }
 
-    public Optional<Course> getCourse(Long courseid){
-        return courseRepository.findByCourseid(courseid);
+    public Course getCourse(Long courseid){
+        return courseRepository.findCourseByCourseid(courseid);
+    }
+
+    public void saveCourse(Course course){
+        courseRepository.save(course);
     }
 
     @Transactional

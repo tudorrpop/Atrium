@@ -6,6 +6,7 @@ export class Choice {
     choiceid?: number | undefined 
   
     course: Course | undefined;
+    allocated: boolean | undefined;
     
     preferredSlots: Slot[] | undefined;
     generalSlots: Slot[] | undefined;

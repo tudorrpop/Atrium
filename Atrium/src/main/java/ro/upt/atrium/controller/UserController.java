@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping("/checkUser")
-    public ResponseEntity<User> getCourse(@RequestParam String email, @RequestParam String name) {
+    public ResponseEntity<User> checkUser(@RequestParam String email, @RequestParam String name) {
 
         System.out.println(email);
         System.out.println(name);
@@ -40,7 +40,7 @@ public class UserController {
         if (user == null){
             if (email.contains("@student")){
                 user = new Student(email, name, email.substring(0, email.indexOf('@')), LocalDate.now());
-            }else if (email.contains("@cs")){
+            }else {
                 user = new Professor(email, name, email.substring(0, email.indexOf('@')), LocalDate.now());
             }
             userService.createUser(user);

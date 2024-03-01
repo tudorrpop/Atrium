@@ -1,8 +1,10 @@
 package ro.upt.atrium.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -21,12 +23,16 @@ public class Course implements Serializable {
 
     @Getter
     private String courseName;
+    @Getter
     private String algorithm;
 
     private LocalDate preferencesDeadline;
-//
-//    @OneToOne
-//    private Professor professor;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @Setter
+    @JoinColumn(name = "professorid")
+    @JsonBackReference
+    private Professor professor;
 
     @JsonIgnore
     @OneToMany
@@ -36,6 +42,8 @@ public class Course implements Serializable {
     private List<Slot> slots;
 
     public Course() {
+        this.students = new ArrayList<>();
+        this.slots = new ArrayList<>();
     }
 
     public Course(String courseName, String algorithm, LocalDate preferencesDeadline, List<Slot> slots) {

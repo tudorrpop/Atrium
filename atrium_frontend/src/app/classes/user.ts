@@ -1,8 +1,9 @@
 export class User {
     id: number | undefined;
     
-    email!: String;
-    name!: String;
-    username!: String;
+    email!: string;
+    name!: string;
+    username!: string;
     joinDate!: Date;
+    role!: string;
 }

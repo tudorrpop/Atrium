@@ -10,18 +10,24 @@ import { MsalGuard } from './msal.guard';
 import { ProfilepageComponent } from './components/profilepage/profilepage.component';
 import { PopUpCourseEnrollmentComponent } from './components/pop-up-course-enrollment/pop-up-course-enrollment.component';
 import { HomeStudentComponent } from './components/home-student/home-student.component';
+import { BlankPageComponent } from 'src/blank';
+import { AllocationPageStudentComponent } from './components/allocation-page-student/allocation-page-student.component';
 
 const routes: Routes = [
+  { path: 'blank', component: BlankPageComponent },
+
+  
   { path: '', redirectTo: '/authentication', pathMatch: 'full' },
   { path: 'authentication', component: AuthenticationComponent },
   { path: 'home', component: HomeComponent, canActivate: [MsalGuard]},
   { path: 'home-student', component: HomeStudentComponent, canActivate: [MsalGuard]},
   { path: 'coursepage-professor/:courseId', component: CoursepageProfessorComponent },
-  { path: 'coursepage-student', component: CoursepageStudentComponent },
+  { path: 'coursepage-student/:choiceid', component: CoursepageStudentComponent },
   { path: 'pop-up-delete/:courseId', component: PopUpCourseDeleteComponent },
   { path: 'create-coursepage-professor', component: CreateCoursepageProfessorComponent },
-  { path: 'profilepage', component: ProfilepageComponent},
-  { path: 'enrollmentpopup', component: PopUpCourseEnrollmentComponent}
+  { path: 'profile', component: ProfilepageComponent},
+  { path: 'enrollmentpopup', component: PopUpCourseEnrollmentComponent},
+  { path: 'allocationstudent', component: AllocationPageStudentComponent}
 ];
 
 @NgModule({

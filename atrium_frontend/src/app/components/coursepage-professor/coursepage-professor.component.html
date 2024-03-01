@@ -1,13 +1,11 @@
 <html lang="en">
     <body>
-        <div class="navbar">
-            <p style="font-size: 30px; font-family: 'Arial', sans-serif; color: white; margin-left: 10px;">Atrium</p>
-        </div>
+        <app-navbar></app-navbar>
 
         <div class="content">
             <div class="course"> 
                 <p style="font-size: 25px; color: white;" >Course Name: {{ course?.courseName }}</p>
-                <p style="font-size: 25px; color: white;" >Teaching Professor: - </p>
+                <p style="font-size: 25px; color: white;" >Teaching Professor: {{ course?.professor?.name }}</p>
                 <p style="font-size: 25px; color: white;" >Prefferences Deadline: {{ course?.preferencesDeadline | date:'dd.MM.yyyy' }}</p>
                 <p style="font-size: 25px; color: white;" [ngSwitch]="course?.algorithm">
                     Students Allocation Algorithm:

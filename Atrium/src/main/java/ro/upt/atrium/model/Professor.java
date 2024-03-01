@@ -1,5 +1,7 @@
 package ro.upt.atrium.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -15,9 +17,11 @@ public class Professor extends User implements Serializable {
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long professorID;
+    private Long professorid;
 
-    @OneToMany
+    @OneToMany(mappedBy = "professor")
+    @Getter
+    @JsonManagedReference
     private List<Course> courses;
 
     public Professor() {

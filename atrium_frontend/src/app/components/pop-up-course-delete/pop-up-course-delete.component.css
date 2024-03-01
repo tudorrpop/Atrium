@@ -1,3 +1,7 @@
+html, body{
+    max-height: 150px;
+}
+
 .content{
     width: 450px;
     background-color: #171A18;

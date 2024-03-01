@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.upt.atrium.model.*;
+import ro.upt.atrium.repository.CourseRepository;
 import ro.upt.atrium.service.CourseService;
 import ro.upt.atrium.service.SlotService;
 import ro.upt.atrium.service.UserService;
@@ -24,45 +25,58 @@ public class CourseController {
     @Autowired
     private UserService userService;
 
+
     @GetMapping("/all")
     public ResponseEntity<List<Course>> getAllCourses(@RequestParam String email) {
 
         User user = userService.getUser(email);
-        if (user instanceof Student){
-            System.out.println("sunt student");
-        } else if (user instanceof Professor) {
-            System.out.println("sunt student");
-        }
-        List<Course> courses = courseService.getAllCourses();
-        System.out.println(courses);
+        List<Course> courses = ((Professor)user).getCourses();
+
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{courseid}")
     public ResponseEntity<Course> deleteCourse(@PathVariable Long courseid) {
+        Course course = courseService.getCourse(courseid);
+
+        course.getStudents().forEach(student -> {
+            student.getChoices().removeIf(choice -> choice.getCourse().getCourseid().equals(courseid));
+        });
+
         courseService.deleteCourse(courseid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
+
     @GetMapping("/course/{courseid}")
-    public ResponseEntity<Optional<Course>> getCourse(@PathVariable Long courseid) {
-        Optional<Course> course = courseService.getCourse(courseid);
+    public ResponseEntity<Course> getCourse(@PathVariable Long courseid) {
+        Course course = courseService.getCourse(courseid);
+
+        if (course.getProfessor() == null)
+            System.out.println("NULL");
+
+        System.out.println(course.getProfessor().getName());
         return new ResponseEntity<>(course, HttpStatus.OK);
     }
 
 
     @PostMapping("/create")
-    public ResponseEntity<Course> createCourse(@RequestBody Course course) {
-        System.out.println("Entered.");
+    public ResponseEntity<Course> createCourse(@RequestBody Course course, @RequestParam String email) {
+
+        System.out.println(email);
+
+        Professor professor = (Professor) userService.getUser(email);
+
         if (!course.getSlots().isEmpty()){
             for (Slot slot : course.getSlots()) {
                 slotService.createSlot(slot);
             }
         }
 
-
+        course.setProfessor(professor);
         Course returnedCourse = courseService.createCourse(course);
+
         return new ResponseEntity<>(returnedCourse, HttpStatus.CREATED);
     }
 }

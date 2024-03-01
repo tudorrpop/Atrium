@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Option } from 'src/app/classes/option';
+import { Choice } from 'src/app/classes/choice';
+import { ChoiceService } from '../service/choice.service';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Slot } from 'src/app/classes/slot';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-coursepage-student',
@@ -9,10 +16,26 @@ import { Option } from 'src/app/classes/option';
 })
 export class CoursepageStudentComponent {
 
-  option: Option | undefined;
+  choiceid: number | undefined;
+  choice: Choice | undefined;
 
-  todo: any[] = [];
-  done: any[] = ['Thursday - 18:00', 'Friday - 10:00', 'Monday - 14:00', 'Tuesday - 18:00', 'Wednesday - 12:00', 'Thursday - 08:00'];
+  modified: boolean = false;
+
+  constructor(private choiceService: ChoiceService, 
+    private router: Router, 
+    private route: ActivatedRoute, 
+    private dialog: MatDialog,
+    private cookieService: CookieService){}
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.choiceid = +params.get('choiceid')!;
+        this.getChoice(this.choiceid)
+    });
+  }
+
+  preferredSlots: any[] = [];
+  generalSlots: any[] = [];
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -25,21 +48,54 @@ export class CoursepageStudentComponent {
         event.currentIndex
       );
     }
+    
+    this.modified = true;
+  }
 
-    console.log(this.todo);
-    console.log(this.done);
+  getChoice(choiceid: number| undefined): void {
+    this.choiceService.getChoice(choiceid).subscribe(
+      (response: Choice) => {
+        this.choice = response;
+        
+        this.preferredSlots = this.choice.preferredSlots as Slot[]; 
+        this.generalSlots = this.choice.generalSlots as Slot[]; 
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
   
 
   goHome() {
-    // Implement the goHome function logic here
+    this.router.navigate(['/home-student']);
   }
 
-  allocateStudents() {
-    // Implement the allocateStudents function logic here
+  saveChanges() {
+    if (this.choice) {
+      this.choice.generalSlots = [...this.generalSlots];
+    }
+
+    if (this.choice) {
+      this.choice.preferredSlots = [...this.preferredSlots];
+    }
+    
+    console.log(this.choice);
+
+    let email : string = this.cookieService.get('email');
+    this.choiceService.saveChoice(this.choice, email).subscribe(
+      (response: Choice) => {
+
+        this.choice = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+
   }
 
-  deleteCourse() {
+  dropCourse() {
     // Implement the deleteCourse function logic here
   }
 }

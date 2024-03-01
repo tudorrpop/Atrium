@@ -24,4 +24,13 @@ export class UserService {
         
     return this.httpClient.get<User>(`http://localhost:8083/user`, { params });
   }
+
+  public checkUser(email: string | undefined, name: string | undefined): Observable<User>{
+    const params = new HttpParams()
+        .set('email', email || '')
+        .set('name', name || '');
+
+
+    return this.httpClient.get<User>(`http://localhost:8083/checkUser`, { params });
+  }
 }

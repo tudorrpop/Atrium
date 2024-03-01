@@ -9,13 +9,14 @@ import java.util.Date;
 
 @Getter
 @MappedSuperclass
-public abstract class User{
+public abstract class User {
 
     @Getter
     private String email;
     private String username;
     private String name;
     private LocalDate joinDate;
+    private String role;
 
 
     public User() {
@@ -27,6 +28,11 @@ public abstract class User{
         this.name = name;
         this.username = username;
         this.joinDate = joinDate;
+
+        if (email.contains("student"))
+            this.role = "Student";
+        else
+            this.role = "Professor";
     }
 
 }

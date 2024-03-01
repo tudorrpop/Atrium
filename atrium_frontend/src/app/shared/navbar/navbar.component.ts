@@ -26,11 +26,17 @@ export class NavbarComponent {
   }
 
   goDashboard(): void{
-    this.router.navigate(['/home-student']);
+
+    if(this.cookieService.get('email').includes("student")){
+      this.router.navigate(['/home-student']);
+    }else{
+      this.router.navigate(['/home']);
+    }
+    
   }
 
   showProfile(): void{
-    this.router.navigate(['/profilepage']);
+    this.router.navigate(['/profile']);
   }
   
 }

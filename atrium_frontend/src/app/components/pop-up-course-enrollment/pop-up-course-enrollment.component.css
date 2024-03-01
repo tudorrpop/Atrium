@@ -8,7 +8,6 @@ html, body{
 .content {
     width: 600px;
     max-height: 400px;
-    background-color: red;
     font-family: 'Montserrat', sans-serif;
 }
 

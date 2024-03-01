@@ -3,6 +3,8 @@ import { MatDialog} from '@angular/material/dialog';
 import { Course } from 'src/app/classes/course';
 import { CourseService } from '../service/course.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+import { ChoiceService } from '../service/choice.service';
 
 
 @Component({
@@ -13,17 +15,23 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class PopUpCourseEnrollmentComponent implements OnInit{
 
   courses: Course[] = [];
+  enrolledCourses: number[] = [];
 
-  constructor(private courseService: CourseService){
+  constructor(private courseService: CourseService,
+    private cookieService: CookieService,
+    private choiceService: ChoiceService){
 
   }
 
   ngOnInit(): void{
-    this.getCourses();
+    this.getCoursesToEnroll();
   }
 
-  getCourses(): void{
-    this.courseService.getCourses().subscribe(
+  getCoursesToEnroll(): void {
+
+    let studentEmail: string = this.cookieService.get('email');
+
+    this.choiceService.getCoursesToEnroll(studentEmail).subscribe(
       (response: Course[]) => {
         this.courses = response;
       },
@@ -36,7 +44,7 @@ export class PopUpCourseEnrollmentComponent implements OnInit{
 
   searchCourses(key: string): void {
     if (!key) {
-      this.getCourses();
+      this.getCoursesToEnroll();
       return;
     }
   
@@ -49,6 +57,27 @@ export class PopUpCourseEnrollmentComponent implements OnInit{
     );
   
     this.courses = results;
+  }
+
+  public addCourse(courseid: number): void{
+
+    this.enrolledCourses.push(courseid);
+
+    let studentEmail: string = this.cookieService.get('email');
+
+    this.choiceService.enrollCourse(courseid, studentEmail).subscribe(
+      () => {
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+
+  }
+
+
+  courseAttended(courseid: number): boolean{
+      return this.enrolledCourses.includes(courseid);
   }
 
   

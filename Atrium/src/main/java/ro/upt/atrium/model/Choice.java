@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,9 +14,11 @@ public class Choice implements Serializable {
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long choiceID;
+    private Long choiceid;
 
-    @OneToOne
+    private boolean allocated;
+
+    @OneToOne(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private Course course;
 
     @OneToMany
@@ -23,4 +26,14 @@ public class Choice implements Serializable {
     @OneToMany
     private List<Slot> generalSlots;
 
+    public Choice() {
+    }
+
+    public Choice(Course course) {
+        this.course = course;
+        this.allocated = false;
+
+        this.preferredSlots = new ArrayList<>(course.getSlots().size());
+        this.generalSlots = new ArrayList<>(course.getSlots());
+    }
 }

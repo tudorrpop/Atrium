@@ -1,12 +1,12 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { User } from 'src/app/classes/user';
 import * as msal from '@azure/msal-browser';
 import { Router } from '@angular/router';
-import { Student } from 'src/app/classes/student';
-import { Professor } from 'src/app/classes/professor';
 import { CookieService } from 'ngx-cookie-service';
+import { tap } from 'rxjs/operators';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,11 +15,12 @@ import { CookieService } from 'ngx-cookie-service';
 
 
 export class AuthService {
+
   private msalConfig: msal.Configuration = {
     auth: {
       clientId: '5edda4ee-b47b-42c4-af0d-88e57ae594aa',
       authority: 'https://login.microsoftonline.com/6bb41fe4-40a3-4a10-b6cd-38278e78b21a',
-      redirectUri: 'http://localhost:4200', // - de intrebat redirectUri -
+      redirectUri: 'http://localhost:4200/blank', 
     },
   };
 
@@ -29,7 +30,8 @@ export class AuthService {
 
   constructor(private router: Router, 
     private httpClient: HttpClient,
-    private cookieService: CookieService) {
+    private cookieService: CookieService,
+    private userService: UserService) {
 
     this.msalInstance = new msal.PublicClientApplication(this.msalConfig);
   }
@@ -38,53 +40,52 @@ export class AuthService {
     try {
       // Check if there is an ongoing interaction
       await this.msalInstance.handleRedirectPromise();
-      console.log('No ongoing interaction. Proceed with login.');
   
       const loginRequest: msal.PopupRequest = {
         scopes: ['user.read'],
       };
   
-      // Initiate the login popupxm
       const loginResponse = await this.msalInstance.loginPopup(loginRequest);
-      console.log('Login Response', loginResponse);
   
       // Check if the login was successful
       if (loginResponse && loginResponse.account) {
         // Set the active account
-         this.msalInstance.setActiveAccount(loginResponse.account);
+        this.msalInstance.setActiveAccount(loginResponse.account);
 
-          this.cookieService.set('name', this.msalInstance.getActiveAccount()?.name ?? '- no name -');
-          this.cookieService.set('email', this.msalInstance.getActiveAccount()?.username ?? '- no email -');
+        this.cookieService.set('name', this.msalInstance.getActiveAccount()?.name ?? '- no name -');
+        this.cookieService.set('email', this.msalInstance.getActiveAccount()?.username ?? '- no email -');
 
-          this.checkUser(this.msalInstance.getActiveAccount()?.username, this.msalInstance.getActiveAccount()?.name);
 
-          this.router.navigate(['/home-student']);
-  
+        let role: string;
+
+        this.userService.checkUser(this.msalInstance.getActiveAccount()?.username, this.msalInstance.getActiveAccount()?.name)
+          .pipe(
+            tap(data => {
+              role = data.role;
+
+              if (role === 'Student') {
+                this.router.navigate(['/home-student']);
+              } else {
+                this.router.navigate(['/home']);
+              }
+            })
+          )
+          .subscribe();
+        
         
       } else {
-        // Handle other scenarios or errors after login
         console.warn('Unexpected login response:', loginResponse);
       }
     } catch (error) {
-      // Handle errors, including interaction in progress
       if (error instanceof msal.BrowserAuthError && error.errorCode === 'interaction_in_progress') {
         console.log('Interaction is already in progress.');
         return;
       }
   
       console.error('Authentication error:', error);
-      // Handle other authentication errors as needed
     }
-  }
 
-  public checkUser(email: string | undefined, uname: string | undefined): void{
-    const params = new HttpParams()
-        .set('email', email || '')
-        .set('name', uname || '');
-
-    this.httpClient.post<User>(`http://localhost:8083/checkUser`, { params });
   }
-  
   
   async initializeMsal(): Promise<void> {
     await this.msalInstance.initialize();
@@ -106,23 +107,17 @@ export class AuthService {
         account: activeAccount,
       };
   
-      const tokenResponse = await this.msalInstance.acquireTokenSilent(tokenRequest);
-      
-      this.cookieService.set('accessToken', tokenResponse.accessToken)
-      localStorage.setItem('token', tokenResponse.accessToken);
-
-      console.log('Token Response', tokenResponse);
+      const tokenResponse = await this.msalInstance.acquireTokenSilent(tokenRequest);    
+      this.cookieService.set('accessToken', tokenResponse.accessToken);
   
-      // Handle token response as needed
     } catch (error) {
       console.error('Token acquisition error:', error);
-      // Handle token acquisition error as needed
     }
   }
 
   async logout(): Promise<void> {
     try {
-      // Ensure that MSAL is initialized
+
       await this.msalInstance.initialize();
   
       // Prepare the logout request
@@ -133,28 +128,16 @@ export class AuthService {
   
       // Initiate the logout
       await this.msalInstance.logout(logoutRequest);
-  
-      // Navigate to the home page after logout
       this.router.navigate(['/authentication']);
+
     } catch (error) {
       console.error('Logout error:', error);
     }
   }
   
   async isLoggedIn(): Promise<boolean> {
-    console.log('Checking isLoggedIn...');
-    
-    await this.msalInstance.initialize(); // Ensure MSAL is initialized
-
-    const activeAccount = this.msalInstance.getActiveAccount();
-
-    if (activeAccount == null) {
-      console.log('User not logged in!');
-      return false;
-    }
-
-    console.log('User is logged in:', activeAccount);
-    return true;
+    await this.msalInstance.initialize(); 
+    return this.msalInstance.getActiveAccount() !== null;
   }
 
 }

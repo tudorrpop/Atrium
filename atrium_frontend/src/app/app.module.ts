@@ -26,6 +26,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { MsalModule } from '@azure/msal-angular';
 import { ProfilepageComponent } from './components/profilepage/profilepage.component';
 import { HomeStudentComponent } from './components/home-student/home-student.component';
+import { AllocationPageStudentComponent } from './components/allocation-page-student/allocation-page-student.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { HomeStudentComponent } from './components/home-student/home-student.com
     CoursepageStudentComponent,
     NavbarComponent,
     ProfilepageComponent,
-    HomeStudentComponent
+    HomeStudentComponent,
+    AllocationPageStudentComponent
   ],
 
   imports: [

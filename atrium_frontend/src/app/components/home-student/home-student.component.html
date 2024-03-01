@@ -7,7 +7,7 @@
             <!-- Headerul continutului principal -->
             <div class="header">
                 <p style="color: white; font-size: 35px; margin-left: 20px; margin-top: 15px; display: inline-block;">Your current courses</p>
-                <button type="button" style="right: 0; position: absolute; margin-top: 15px; margin-right: 50px; " class="btn btn-outline-secondary" (click) = "openCourseCreationDialiog()">Enroll Course</button>        
+                <button type="button" style="right: 0; position: absolute; margin-top: 15px; margin-right: 50px; " class="btn btn-outline-secondary" (click) = "openCourseEnrollmentDialiog()">Enroll Course</button>        
             </div>
 
             <!-- Containerul de carduri -->
@@ -15,7 +15,7 @@
                 <p style="font-style: italic; font-size: 20px; font-family: 'YourDesiredFont', sans-serif; color: white; margin-left: 100px; margin-top: 50px;" [hidden]="choices.length !== 0">no courses to be displayed ..</p>
                 <div class="cards" *ngFor="let choice of choices" class="col-md-6 col-xl-3 col-sm-5">
 
-                    <div class="card" (click)="navigateToCourse(choice.choiceid)">
+                    <div class="card" (click)="navigateToChoice(choice?.choiceid)">
                         <div class="card-header">
                             <p style="text-align: center; margin: 0%;">{{ choice?.course?.courseName }}</p>
                         </div>

@@ -29,7 +29,7 @@ public class UserService {
         return professorRepository.findByEmail(email);
     }
 
-    public User createUser(User user){
+    public User saveUser(User user){
         if (user instanceof Student) {
             return studentRepository.save((Student) user);
         } else if (user instanceof Professor) {

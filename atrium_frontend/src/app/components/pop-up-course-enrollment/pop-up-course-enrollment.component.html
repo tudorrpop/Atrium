@@ -15,7 +15,7 @@
                           <tr *ngFor="let course of courses; let i = index">
                             <th scope="row">{{i + 1}}</th>
                             <td>{{ course?.courseName }}</td>
-                            <td>George Andrei</td>
+                            <td>{{ course?.professor?.name }}</td>
                             <td *ngIf="!courseAttended(course?.courseid!)"><i class="fa-regular fa-square-plus" (click)="addCourse(course?.courseid!)"></i></td>
                             <td *ngIf="courseAttended(course?.courseid!)"><i class="fa-regular fa-check" style="color: green;"></i></td>
                           </tr>

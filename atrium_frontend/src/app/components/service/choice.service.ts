@@ -47,8 +47,11 @@ export class ChoiceService {
     return this.httpClient.get<Choice>(`http://localhost:8083/choice/${choiceid}`);
   }
 
-  public dropCourse(courseid: number | undefined): Observable<void>{
-    return this.httpClient.delete<void>(`${this.baseUrl}/drop`);
+  public dropCourse(choiceid: number | undefined, email: string): Observable<void>{
+    const params = new HttpParams()
+        .set('email', email || '');
+
+    return this.httpClient.delete<void>(`http://localhost:8083/drop/${choiceid}`, { params });
   }
 
   public enrollCourse(courseid: number, email: string): Observable<Choice>{

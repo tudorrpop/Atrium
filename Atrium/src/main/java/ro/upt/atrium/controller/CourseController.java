@@ -39,9 +39,12 @@ public class CourseController {
     public ResponseEntity<Course> deleteCourse(@PathVariable Long courseid) {
         Course course = courseService.getCourse(courseid);
 
-        course.getStudents().forEach(student -> {
-            student.getChoices().removeIf(choice -> choice.getCourse().getCourseid().equals(courseid));
-        });
+        if (course.getProfessor() != null) {
+            Professor professor = course.getProfessor();
+            professor.getCourses().remove(course);
+            course.setProfessor(null);
+            userService.saveUser(professor);
+        }
 
         courseService.deleteCourse(courseid);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -64,8 +67,6 @@ public class CourseController {
     @PostMapping("/create")
     public ResponseEntity<Course> createCourse(@RequestBody Course course, @RequestParam String email) {
 
-        System.out.println(email);
-
         Professor professor = (Professor) userService.getUser(email);
 
         if (!course.getSlots().isEmpty()){
@@ -75,6 +76,7 @@ public class CourseController {
         }
 
         course.setProfessor(professor);
+
         Course returnedCourse = courseService.createCourse(course);
 
         return new ResponseEntity<>(returnedCourse, HttpStatus.CREATED);

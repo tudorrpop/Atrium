@@ -1,10 +1,9 @@
 
-  
   .content{
     margin-top: 30px;
     width: 100%;
     background-color: #171A18;
-    min-height: 550px;
+    min-height: 510px; /* 550 for previous ex */
     height: auto;
   
     display: flex;
@@ -20,10 +19,21 @@
   }
 
   
-.buttons{
-    margin-top: 30px;
+/* .buttons{
+    margin-top: 10px;
     margin-bottom: 20px;
-}
+} */
+
+/* .thick-arrow-down {
+  width: 55px;
+  height: 90px;
+  border: 10px solid green;
+  border-left: 0;
+  border-top: 0;
+
+  transform: rotate(45deg);
+} */
+
     
 
     

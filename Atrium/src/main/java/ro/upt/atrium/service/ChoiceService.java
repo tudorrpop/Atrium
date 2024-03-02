@@ -17,21 +17,24 @@ public class ChoiceService {
         this.choiceRepository = choiceRepository;
     }
 
-    public List<Choice> getAllChoices(){
+    public void saveChoice(Choice choice){
+        choiceRepository.save(choice);
+    }
+
+    public void deleteChoice(Choice choice){
+        choiceRepository.delete(choice);
+    }
+
+    public void deleteChoice(Long choiceid){
+        choiceRepository.deleteById(choiceid);
+    }
+
+    public List<Choice> getChoices(){
         return choiceRepository.findAll();
     }
 
     public Choice getChoice(Long choiceid){
         return choiceRepository.findChoiceByChoiceid(choiceid);
-    }
-
-    public void saveChoice(Choice choice){
-        choiceRepository.save(choice);
-    }
-
-
-    public void createChoice(Choice choice){
-        choiceRepository.save(choice);
     }
 
 }

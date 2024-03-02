@@ -19,9 +19,8 @@ public class Professor extends User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long professorid;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "professor")
-    @Getter
-    @JsonManagedReference
     private List<Course> courses;
 
     public Professor() {

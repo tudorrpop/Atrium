@@ -1,5 +1,6 @@
 package ro.upt.atrium.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -18,9 +19,16 @@ public class Student extends User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long studentid;
 
-    @OneToMany
-    private List<Choice> choices;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "courses_students",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private List<Course> courses = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Choice> choices;
 
     public Student() {
 
@@ -31,10 +39,10 @@ public class Student extends User implements Serializable {
         this.choices = new ArrayList<>();
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "studentid=" + studentid +
-                '}';
+    public void enrollStudentIntoCourse(Choice choice){
+        if (choice != null)
+            choices.add(choice);
+        else
+            throw new IllegalArgumentException("The given choice for course enrollment is NULL");
     }
 }

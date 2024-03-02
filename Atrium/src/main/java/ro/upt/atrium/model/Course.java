@@ -28,22 +28,20 @@ public class Course implements Serializable {
 
     private LocalDate preferencesDeadline;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+
     @Setter
-    @JoinColumn(name = "professorid")
-    @JsonBackReference
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "professor_id", referencedColumnName = "professorid")
     private Professor professor;
 
-    @JsonIgnore
-    @OneToMany
-    private List<Student> students;
-
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Slot> slots;
 
+    @ManyToMany(mappedBy = "courses", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Student> students;
+
     public Course() {
-        this.students = new ArrayList<>();
-        this.slots = new ArrayList<>();
     }
 
     public Course(String courseName, String algorithm, LocalDate preferencesDeadline, List<Slot> slots) {
@@ -53,6 +51,9 @@ public class Course implements Serializable {
 
         this.students = new ArrayList<>();
         this.slots = slots;
+    }
+    public void enrollStudentIntoCourse(Student student){
+        students.add(student);
     }
 
 }

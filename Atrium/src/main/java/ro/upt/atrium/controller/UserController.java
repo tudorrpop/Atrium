@@ -43,7 +43,7 @@ public class UserController {
             }else {
                 user = new Professor(email, name, email.substring(0, email.indexOf('@')), LocalDate.now());
             }
-            userService.createUser(user);
+            userService.saveUser(user);
         }
 
         return new ResponseEntity<>(user, HttpStatus.OK);

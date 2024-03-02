@@ -43,11 +43,11 @@ public class ChoiceController {
 
     @GetMapping("/courses")
     public ResponseEntity<List<Course>> getAllCourses(@RequestParam String email) {
-        User user = userService.getUser(email);
+
+        Student student = (Student) userService.getUser(email);
         List<Course> courses = courseService.getAllCourses();
 
-        courses.removeIf(course -> course.getStudents().contains((Student) user));
-
+        courses.removeAll(student.getCourses());
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
@@ -63,27 +63,42 @@ public class ChoiceController {
     @PostMapping("/enroll")
     public ResponseEntity<Choice> enrollCourse(@RequestBody Long courseid, @RequestParam String email) {
 
-
+        // Get student and course of interest
+        Student student = (Student) userService.getUser(email);
         Course course = courseService.getCourse(courseid);
 
+        // Create and save new choice
         Choice choice = new Choice(course);
-        choiceService.createChoice(choice);
+        choiceService.saveChoice(choice);
 
-        Student student = (Student) userService.getUser(email);
-        student.getChoices().add(choice);
+        // Add created choice to the student.
+        student.enrollStudentIntoCourse(choice);
+        student.getCourses().add(course);
+        userService.saveUser(student);
 
-        // Save the Choice entity first to avoid cascading issues
-        choiceService.createChoice(choice);
-
-        // Now, save the Student entity
-        userService.createUser(student);
-
-        course.getStudents().add(student);
-
-        courseService.saveCourse(course);
-
+//        // Add student to the students list of the course.
+//        course.enrollStudentIntoCourse(student);
+//        courseService.saveCourse(course);
 
         return new ResponseEntity<>(choice, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/drop/{choiceid}")
+    public ResponseEntity<Course> deleteChoice(@PathVariable Long choiceid, @RequestParam String email) {
+        Choice choice = choiceService.getChoice(choiceid);
+
+        Course course = choice.getCourse();
+
+        Student student = (Student) userService.getUser(email);
+
+        student.getChoices().remove(choice);
+
+        course.getStudents().remove(student);
+        student.getCourses().remove(course);
+
+        choiceService.deleteChoice(choice);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

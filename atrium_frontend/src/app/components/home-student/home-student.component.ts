@@ -43,7 +43,11 @@ export class HomeStudentComponent {
 
   navigateToChoice(choiceid: number| undefined ){
     if (choiceid !== undefined) {
-      this.router.navigate(['/coursepage-student', choiceid]);
+
+      if (this.choices.find(choice => choice.choiceid === choiceid)?.allocated === true)
+        this.router.navigate(['/allocationstudent', choiceid]);
+      else
+        this.router.navigate(['/coursepage-student', choiceid]);
     } else {
       console.error('CourseId is undefined');
     }

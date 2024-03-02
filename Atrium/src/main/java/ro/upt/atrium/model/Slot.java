@@ -20,6 +20,7 @@ public class Slot implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private Time time;
+
     private int capacity;
 
     public Slot() {

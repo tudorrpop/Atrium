@@ -96,6 +96,14 @@ export class CoursepageStudentComponent {
   }
 
   dropCourse() {
-    // Implement the deleteCourse function logic here
+    let email : string = this.cookieService.get('email');
+    this.choiceService.dropCourse(this.choiceid, email).subscribe(
+      () => {
+        this.router.navigate([`/home-student`]);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 }

@@ -18,13 +18,26 @@ public class Choice implements Serializable {
 
     private boolean allocated;
 
-    @OneToOne(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne
+    @JoinColumn(name = "course_id", referencedColumnName = "courseid")
     private Course course;
 
     @OneToMany
+    @JoinTable(
+            name = "preferred_slots",
+            joinColumns = @JoinColumn(name = "choice_id"),
+            inverseJoinColumns = @JoinColumn(name = "slot_id")
+    )
     private List<Slot> preferredSlots;
+
+    @JoinTable(
+            name = "general_slots",
+            joinColumns = @JoinColumn(name = "choice_id"),
+            inverseJoinColumns = @JoinColumn(name = "slot_id")
+    )
     @OneToMany
     private List<Slot> generalSlots;
+
 
     public Choice() {
     }

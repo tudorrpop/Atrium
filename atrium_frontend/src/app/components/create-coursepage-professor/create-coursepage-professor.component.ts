@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { PopUpSlotComponent } from '../pop-up-slot/pop-up-slot.component';
 import { SlotService } from '../service/slot.service';
-import { PopUpCourseEnrollmentComponent } from '../pop-up-course-enrollment/pop-up-course-enrollment.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-create-coursepage-professor',
@@ -16,8 +16,8 @@ import { PopUpCourseEnrollmentComponent } from '../pop-up-course-enrollment/pop-
 })
 export class CreateCoursepageProfessorComponent implements OnInit{
 
-    courseName!: String;
-    algorithm!: String;
+    courseName!: string;
+    algorithm: string | undefined;
     preferencesDeadline!: Date;
     slots: Slot[] = [];
   
@@ -25,6 +25,7 @@ export class CreateCoursepageProfessorComponent implements OnInit{
         private slotService: SlotService, 
         private dialog: MatDialog, 
         private router: Router,
+        private cookieService: CookieService
       ){}
   
     ngOnInit(): void{ 
@@ -35,15 +36,25 @@ export class CreateCoursepageProfessorComponent implements OnInit{
     }
     
     editSlot(id: number){
-      // console.log(day);
-      // console.log(time);
-      
-      // const dialogRef = this.dialog.open(PopUpSlotComponent, {
-      //   data: {
-      //     dayID: day,
-      //     timeID: time
-      //   }
-      // });
+
+      const index = this.slots.findIndex(item => item.id === id);
+      const slot = this.slots[index];
+
+      const dialogRef = this.dialog.open(PopUpSlotComponent, {
+        data: { slot }
+      });
+    
+
+      dialogRef.afterClosed().subscribe((result: boolean) => {
+        if (result) {
+          const index = this.slots.findIndex(item => item.id === this.slotService.getData().id);
+          this.slots[index] = this.slotService.getData();
+
+        } else {
+          console.log('No element was added.');
+        }
+      });
+
     }
 
     removeSlot(id: number): void {
@@ -53,7 +64,10 @@ export class CreateCoursepageProfessorComponent implements OnInit{
     createCourse(){
       const course = new Course(this.courseName, this.algorithm,
         this.preferencesDeadline, this.slots);
-      this.courseService.createCourse(course)
+
+      let professorEmail: string = this.cookieService.get('email');
+        
+      this.courseService.createCourse(course, professorEmail)
         .subscribe(
           response => {
             this.router.navigate(['/home']);
@@ -71,7 +85,6 @@ export class CreateCoursepageProfessorComponent implements OnInit{
       dialogRef.afterClosed().subscribe((result: boolean) => {
         if (result) {
           this.addElement(this.slotService.getData());
-          console.log(this.slotService.getData());
         } else {
           console.log('No element was added.');
         }

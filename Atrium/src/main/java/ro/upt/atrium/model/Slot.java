@@ -2,12 +2,14 @@ package ro.upt.atrium.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalTime;
 
 @Entity
 @Getter
+@Setter
 public class Slot implements Serializable {
 
     @Id
@@ -20,6 +22,7 @@ public class Slot implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private Time time;
+
     private int capacity;
 
     public Slot() {
@@ -31,4 +34,13 @@ public class Slot implements Serializable {
         this.capacity = capacity;
     }
 
+    @Override
+    public String toString() {
+        return "Slot{" +
+                "slotid=" + slotid +
+                ", day=" + day +
+                ", time=" + time +
+                ", capacity=" + capacity +
+                '}';
+    }
 }

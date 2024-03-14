@@ -1,0 +1,185 @@
+--- Course Information ---
+courseid: 1
+coursename: POO
+--- END ---
+
+
+--- Slots Information ---
+slotid: 1
+slottime: TIME_08_10
+slotday: MONDAY
+slotcapacity: 2
+
+slotid: 2
+slottime: TIME_10_12
+slotday: TUESDAY
+slotcapacity: 2
+
+slotid: 3
+slottime: TIME_16_18
+slotday: WEDNESDAY
+slotcapacity: 8
+
+slotid: 4
+slottime: TIME_12_14
+slotday: THURSDAY
+slotcapacity: 2
+
+slotid: 5
+slottime: TIME_08_10
+slotday: FRIDAY
+slotcapacity: 7
+--- END ---
+
+
+--- Choices Information ---
+choiceid: 1
+1,2,3,4,5
+
+choiceid: 2
+4,1,5,3,2
+
+choiceid: 3
+3,5,2,1,4
+
+choiceid: 4
+2,1,5,4,3
+
+choiceid: 5
+5,2,1,3,4
+
+choiceid: 6
+4,3,2,1,5
+
+choiceid: 7
+1,3,5,4,2
+
+choiceid: 8
+5,1,2,3,4
+
+choiceid: 9
+2,4,5,1,3
+
+choiceid: 10
+3,1,2,4,5
+
+choiceid: 11
+4,3,5,1,2
+
+choiceid: 12
+2,5,3,4,1
+
+choiceid: 13
+5,2,1,3,4
+
+choiceid: 14
+4,1,5,2,3
+
+choiceid: 15
+3,5,2,1,4
+
+choiceid: 16
+2,1,1,5,3
+
+choiceid: 17
+5,2,1,3,4
+
+choiceid: 18
+4,3,2,1,5
+
+choiceid: 19
+1,3,5,4,2
+
+choiceid: 20
+5,1,2,3,4
+
+choiceid: 21
+2,4,5,1,3
+--- END ---
+
+
+--- Students Information ---
+studentid: 1
+studentname: Student1
+studentchoice: 1
+
+studentid: 2
+studentname: Student2
+studentchoice: 2
+
+studentid: 3
+studentname: Student3
+studentchoice: 3
+
+studentid: 4
+studentname: Student4
+studentchoice: 4
+
+studentid: 5
+studentname: Student5
+studentchoice: 5
+
+studentid: 6
+studentname: Student6
+studentchoice: 6
+
+studentid: 7
+studentname: Student7
+studentchoice: 7
+
+studentid: 8
+studentname: Student8
+studentchoice: 8
+
+studentid: 9
+studentname: Student9
+studentchoice: 9
+
+studentid: 10
+studentname: Student10
+studentchoice: 10
+
+studentid: 11
+studentname: Student11
+studentchoice: 11
+
+studentid: 12
+studentname: Student12
+studentchoice: 12
+
+studentid: 13
+studentname: Student13
+studentchoice: 13
+
+studentid: 14
+studentname: Student14
+studentchoice: 14
+
+studentid: 15
+studentname: Student15
+studentchoice: 15
+
+studentid: 16
+studentname: Student16
+studentchoice: 16
+
+studentid: 17
+studentname: Student17
+studentchoice: 17
+
+studentid: 18
+studentname: Student18
+studentchoice: 18
+
+studentid: 19
+studentname: Student19
+studentchoice: 19
+
+studentid: 20
+studentname: Student20
+studentchoice: 20
+
+studentid: 21
+studentname: Student21
+studentchoice: 21
+--- END ---

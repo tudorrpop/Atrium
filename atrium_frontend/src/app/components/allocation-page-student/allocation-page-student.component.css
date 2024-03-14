@@ -1,0 +1,39 @@
+
+  .content{
+    margin-top: 30px;
+    width: 100%;
+    background-color: #171A18;
+    min-height: 510px; /* 550 for previous ex */
+    height: auto;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .information {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  
+/* .buttons{
+    margin-top: 10px;
+    margin-bottom: 20px;
+} */
+
+/* .thick-arrow-down {
+  width: 55px;
+  height: 90px;
+  border: 10px solid green;
+  border-left: 0;
+  border-top: 0;
+
+  transform: rotate(45deg);
+} */
+
+    
+
+    

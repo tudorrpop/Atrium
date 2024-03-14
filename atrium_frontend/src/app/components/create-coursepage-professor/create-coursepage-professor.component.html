@@ -1,8 +1,6 @@
 <html lang="en">
     <body>
-        <div class="navbar">
-            <p style="font-size: 30px; font-family: 'Arial', sans-serif; color: white; margin-left: 10px;">Atrium</p>
-        </div>
+        <app-navbar></app-navbar>
 
         <div class="content">
             <div class="title">
@@ -12,7 +10,7 @@
                 <div class="left">
                     
                     <div class="mb-3">
-                        <label style="font-size: 20px;" for="exampleFormControlInput1" class="form-label">Courses name:</label>
+                        <label style="font-size: 20px;" for="exampleFormControlInput1" class="form-label">Course name:</label>
                         <input style="background-color: #303030; border-color: #303030; color: white;" type="name" class="form-control" [(ngModel)] = "courseName"  id="exampleFormControlInput1" placeholder="Name">
                     </div>
 
@@ -22,8 +20,9 @@
                     </div> -->
 
                     <div class="mb-3">
-                        <label style="font-size: 20px;" for="exampleFormControlInput1" class="form-label">Select the allocation algorithm:</label>
-                        <select style="background-color: #303030; border-color: #303030; color: white; " class="form-select" aria-label="Default select example" [(ngModel)]="algorithm">
+                        <label style="font-size: 20px;" class="form-label">Select the allocation algorithm:</label>
+                        <select class="form-select" [(ngModel)]="algorithm">
+                            <option [ngValue]="undefined" selected >Allocation Algorithm</option>
                             <option [ngValue]="'STANDARD_ALGORITHM'" >Standard Algorithm</option>
                             <option [ngValue]="'GALE_SHAPLEY_ALGORITHM'" >Gale Shapley Algorithm</option>
                         </select>
@@ -43,7 +42,7 @@
 
                 
                     <div class="right">
-                        <p style="font-size: 25px; display: inline-block;" >Slots available:</p>
+                        <p style="font-size: 20px; display: inline-block;" >Slots available:</p>
                         <table class="table table-hover">
                             <thead>
                               <tr>
@@ -90,7 +89,7 @@
                     <input class="form-check-input" type="checkbox" [(ngModel)] = "visibility" id="defaultCheck1">
                     <label class="form-check-label" for="defaultCheck1">Private</label>
                 </div> -->
-                    <button type="button" [disabled]="!courseName" class="btn btn-primary" (click)="createCourse()">Save changes</button>
+                    <button type="button" [disabled]="!courseName || algorithm === undefined || preferencesDeadline === undefined" class="btn btn-primary" (click)="createCourse()">Save changes</button>
                     <button style="margin-left: 10px;" type="button" class="btn btn-secondary" (click)="goHome()">Cancel</button>
             </div>
             

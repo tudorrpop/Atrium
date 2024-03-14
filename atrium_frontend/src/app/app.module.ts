@@ -20,10 +20,18 @@ import { CoursepageProfessorComponent } from './components/coursepage-professor/
 import { CreateCoursepageProfessorComponent } from './components/create-coursepage-professor/create-coursepage-professor.component';
 import { PopUpCourseEnrollmentComponent } from './components/pop-up-course-enrollment/pop-up-course-enrollment.component';
 import { PopUpCourseDeleteComponent } from './components/pop-up-course-delete/pop-up-course-delete.component';
-
+import { CoursepageStudentComponent } from './components/coursepage-student/coursepage-student.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { MsalModule } from '@azure/msal-angular';
+import { ProfilepageComponent } from './components/profilepage/profilepage.component';
+import { HomeStudentComponent } from './components/home-student/home-student.component';
+import { AllocationPageStudentComponent } from './components/allocation-page-student/allocation-page-student.component';
+import { PopUpChoiceChangesComponent } from './components/pop-up-choice-changes/pop-up-choice-changes.component';
 
 
 @NgModule({
+
   declarations: [
     AppComponent,
     AuthenticationComponent,
@@ -32,8 +40,15 @@ import { PopUpCourseDeleteComponent } from './components/pop-up-course-delete/po
     CoursepageProfessorComponent,
     CreateCoursepageProfessorComponent,
     PopUpCourseEnrollmentComponent,
-    PopUpCourseDeleteComponent
+    PopUpCourseDeleteComponent,
+    CoursepageStudentComponent,
+    NavbarComponent,
+    ProfilepageComponent,
+    HomeStudentComponent,
+    AllocationPageStudentComponent,
+    PopUpChoiceChangesComponent
   ],
+
   imports: [
     BrowserAnimationsModule,
     FormsModule,
@@ -46,9 +61,17 @@ import { PopUpCourseDeleteComponent } from './components/pop-up-course-delete/po
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
+    DragDropModule,
+    BrowserModule,
+    MsalModule
   ],
 
-  providers: [],
+  providers: [ ],
+
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+
+
+export class AppModule { 
+}

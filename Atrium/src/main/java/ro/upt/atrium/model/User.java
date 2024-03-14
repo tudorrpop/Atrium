@@ -2,26 +2,39 @@ package ro.upt.atrium.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
-@Entity
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Date;
+
 @Getter
+@MappedSuperclass
+@Setter
 public abstract class User {
 
-    @Id
-    @Column(nullable = false, updatable = false)
-    private Long userID;
-
-    private String username;
+    @Getter
     private String email;
+    private String username;
     private String name;
+    private LocalDate joinDate;
+    private String role;
+
 
     public User() {
 
     }
 
-    public User(String username, String email, String name) {
-        this.username = username;
+    public User(String email, String name, String username, LocalDate joinDate) {
         this.email = email;
         this.name = name;
+        this.username = username;
+        this.joinDate = joinDate;
+
+        if (email.contains("student"))
+            this.role = "Student";
+        else
+            this.role = "Professor";
     }
+
 }

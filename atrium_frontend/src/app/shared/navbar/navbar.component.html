@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark"style="background-color: #343D47;">
+    <div class="container-fluid">
+      <!-- Centered "Atrium" on the left -->
+      <a class="navbar-brand" style="font-size: 30px; font-family: 'Arial', sans-serif; color: white;">Atrium</a>
+  
+      <!-- Right-aligned buttons -->
+      <div class="navbar-collapse justify-content-end">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" (click)="goDashboard()">
+              <i class="fa-regular fa-table-cells-large"></i>
+              <span style="font-family: 'Arial', sans-serif;"> Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">
+              <i class="fa-regular fa-bell"></i>
+              <span style="font-family: 'Arial', sans-serif;"> Notifications</span>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-regular fa-user"></i>
+              <span style="font-family: 'Arial', sans-serif;"> {{ name }} </span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" (click)="showProfile()">My profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" (click)="logout()"><i class="fa-regular fa-arrow-right-from-bracket"></i> Sign out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  

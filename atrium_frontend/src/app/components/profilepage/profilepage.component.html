@@ -1,0 +1,34 @@
+<html lang="en">
+    <body>
+        <app-navbar></app-navbar>
+
+        <div class="content">
+            <div class="information">
+                <p style="font-size: 40px; color: white; margin-top: 20px;" >Account Information</p>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <td>Full Name <br> {{ user?.name }}</td>
+                        </tr>
+    
+                        <tr>
+                            <td>Username <br> {{ user?.username }}</td>
+                        </tr>
+    
+                        <tr>
+                            <td>Email <br> {{ user?.email }}</td>
+                        </tr>
+    
+                        <tr>
+                            <td>Role <br> {{ user?.role }}</td>
+                        </tr>
+    
+                        <tr>
+                            <td>Joined Atrium on <br> {{ user?.joinDate | date:'dd.MM.yyyy' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

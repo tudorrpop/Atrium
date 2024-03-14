@@ -35,7 +35,14 @@ export class CoursepageProfessorComponent {
   }
 
   allocateStudents(){
-
+    this.courseService.allocateStudents().subscribe(
+      (response: Course) => {
+        console.log(response);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 
   deleteCourse(){

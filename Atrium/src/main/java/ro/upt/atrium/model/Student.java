@@ -3,6 +3,7 @@ package ro.upt.atrium.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 public class Student extends User implements Serializable {
 
 
@@ -44,5 +46,14 @@ public class Student extends User implements Serializable {
             choices.add(choice);
         else
             throw new IllegalArgumentException("The given choice for course enrollment is NULL");
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentid=" + studentid +
+                ", courses=" + courses +
+                ", choices=" + choices +
+                '}';
     }
 }

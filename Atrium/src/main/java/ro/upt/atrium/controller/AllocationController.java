@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.upt.atrium.model.Course;
 import ro.upt.atrium.model.Slot;
+import ro.upt.atrium.service.AllocationService;
 import ro.upt.atrium.service.CourseService;
 
 
@@ -17,10 +18,15 @@ public class AllocationController {
     @Autowired
     CourseService courseService;
 
-    @PostMapping("/allocate")
-    public ResponseEntity<Course> createCourse(@RequestBody Long courseID) {
+    @Autowired
+    AllocationService allocationService;
 
-        Course course = courseService.getCourse(courseID);
+    @PostMapping("/allocate")
+    public ResponseEntity<Course> createCourse() {
+        Course course = new Course();
+
+        allocationService.startAllocationProcess();
+
 
         return new ResponseEntity<>(course, HttpStatus.CREATED);
     }

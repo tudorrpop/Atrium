@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Slot } from 'src/app/classes/slot';
 import { CookieService } from 'ngx-cookie-service';
+import { PopUpChoiceChangesComponent } from '../pop-up-choice-changes/pop-up-choice-changes.component';
 
 @Component({
   selector: 'app-coursepage-student',
@@ -68,7 +69,19 @@ export class CoursepageStudentComponent {
   
 
   goHome() {
-    this.router.navigate(['/home-student']);
+    if (this.modified === true){
+      const dialogRef = this.dialog.open(PopUpChoiceChangesComponent);
+
+      dialogRef.afterClosed().subscribe((result: boolean) => {
+        if (result) {
+          this.saveChanges();
+        } else {
+          console.log('RESULT FALSE');
+        }
+      });
+
+    } else
+      this.router.navigate(['/home-student']);
   }
 
   saveChanges() {
@@ -87,6 +100,7 @@ export class CoursepageStudentComponent {
       (response: Choice) => {
 
         this.choice = response;
+        this.modified = false;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

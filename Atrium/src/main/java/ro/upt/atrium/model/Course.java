@@ -14,6 +14,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 public class Course implements Serializable {
 
     @Id
@@ -56,4 +57,16 @@ public class Course implements Serializable {
         students.add(student);
     }
 
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseid=" + courseid +
+                ", courseName='" + courseName + '\'' +
+                ", algorithm='" + algorithm + '\'' +
+                ", preferencesDeadline=" + preferencesDeadline +
+                ", professor=" + professor +
+                ", slots=" + slots +
+                ", students=" + students +
+                '}';
+    }
 }

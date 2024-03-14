@@ -57,4 +57,10 @@ export class CourseService {
     return this.httpClient.post<Course>('http://localhost:8083/create', course, {headers, params});
   }
 
+  public allocateStudents(): Observable<Course>{
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post<Course>('http://localhost:8083/allocate', null, {headers});
+  }
+
 }

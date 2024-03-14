@@ -27,6 +27,7 @@ import { MsalModule } from '@azure/msal-angular';
 import { ProfilepageComponent } from './components/profilepage/profilepage.component';
 import { HomeStudentComponent } from './components/home-student/home-student.component';
 import { AllocationPageStudentComponent } from './components/allocation-page-student/allocation-page-student.component';
+import { PopUpChoiceChangesComponent } from './components/pop-up-choice-changes/pop-up-choice-changes.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { AllocationPageStudentComponent } from './components/allocation-page-stu
     NavbarComponent,
     ProfilepageComponent,
     HomeStudentComponent,
-    AllocationPageStudentComponent
+    AllocationPageStudentComponent,
+    PopUpChoiceChangesComponent
   ],
 
   imports: [

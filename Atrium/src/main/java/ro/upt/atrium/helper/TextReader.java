@@ -1,6 +1,12 @@
 package ro.upt.atrium.helper;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ro.upt.atrium.model.*;
+import ro.upt.atrium.repository.CourseRepository;
+import ro.upt.atrium.repository.ProfessorRepository;
+import ro.upt.atrium.repository.SlotRepository;
+import ro.upt.atrium.repository.StudentRepository;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -8,7 +14,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+@Service
 public class TextReader {
+
+    private static SlotRepository slotRepository = null;
+    private static StudentRepository studentRepository = null;
+
+    private static ProfessorRepository professorRepository = null;
+
+    private static CourseRepository courseRepository = null;
+
+    @Autowired
+    public TextReader(SlotRepository slotRepository, StudentRepository studentRepository, ProfessorRepository professorRepository,
+                      CourseRepository courseRepository) {
+        this.courseRepository = courseRepository;
+        this.slotRepository = slotRepository;
+        this.studentRepository = studentRepository;
+        this.professorRepository = professorRepository;
+    }
 
     public static Course shapeInput(String filePath) {
 
@@ -45,6 +68,7 @@ public class TextReader {
             e.printStackTrace();
         }
 
+//        courseRepository.save(course);
         return course;
     }
 
@@ -68,11 +92,13 @@ public class TextReader {
             }
         }
 
-        course.setProfessor(null);
+        course.setProfessor(professorRepository.findByEmail("atrium.professor@uptro29158.onmicrosoft.com"));
         course.setAlgorithm("");
         course.setPreferencesDeadline(null);
         course.setStudents(new ArrayList<>());
         course.setSlots(new ArrayList<>());
+        course.setFinalized(false);
+//        course.setGroups(new ArrayList<>());
     }
 
     private static ArrayList<Slot> createSlots(BufferedReader reader) throws IOException {
@@ -117,6 +143,8 @@ public class TextReader {
             }
 
         }
+
+        slotRepository.saveAll(slots);
 
         return slots;
     }
@@ -202,6 +230,8 @@ public class TextReader {
                 students.add(student);
             }
         }
+
+        studentRepository.saveAll(students);
         return students;
     }
 

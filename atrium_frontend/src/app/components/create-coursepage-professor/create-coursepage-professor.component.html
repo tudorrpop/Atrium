@@ -75,8 +75,8 @@
                                     <ng-container *ngSwitchDefault> - </ng-container>
                                 </td>
                                 <td>{{slot.capacity}}</td>
-                                <td><i class="fa-regular fa-pen-to-square" (click)="editSlot(slot.id !== undefined ? slot.id : 0)"></i></td>
-                                <td><i class="fa-solid fa-trash" (click)="removeSlot(slot.id !== undefined ? slot.id : 0)"></i></td>
+                                <td><i class="fa-regular fa-pen-to-square" (click)="editSlot(slot.slotid !== undefined ? slot.slotid : 0)"></i></td>
+                                <td><i class="fa-solid fa-trash" (click)="removeSlot(slot.slotid !== undefined ? slot.slotid : 0)"></i></td>
                               </tr>
                             </tbody>
                         </table>

@@ -12,6 +12,7 @@ import { PopUpCourseEnrollmentComponent } from './components/pop-up-course-enrol
 import { HomeStudentComponent } from './components/home-student/home-student.component';
 import { BlankPageComponent } from 'src/blank';
 import { AllocationPageStudentComponent } from './components/allocation-page-student/allocation-page-student.component';
+import { AuthenticationAdminComponent } from './components/authentication-admin/authentication-admin.component';
 
 const routes: Routes = [
   { path: 'blank', component: BlankPageComponent },
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: 'create-coursepage-professor', component: CreateCoursepageProfessorComponent },
   { path: 'profile', component: ProfilepageComponent},
   { path: 'enrollmentpopup', component: PopUpCourseEnrollmentComponent},
-  { path: 'allocationstudent', component: AllocationPageStudentComponent}
+  { path: 'allocationstudent', component: AllocationPageStudentComponent},
+  { path: 'authenticationadmin', component: AuthenticationAdminComponent}
 ];
 
 @NgModule({

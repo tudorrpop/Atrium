@@ -3,11 +3,8 @@ package ro.upt.atrium.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ro.upt.atrium.helper.CSVWriter;
-import ro.upt.atrium.helper.TextReader;
-import ro.upt.atrium.model.Choice;
-import ro.upt.atrium.model.Course;
-import ro.upt.atrium.model.Slot;
-import ro.upt.atrium.model.Student;
+import ro.upt.atrium.model.*;
+import ro.upt.atrium.repository.StudentRepository;
 
 import java.util.*;
 
@@ -15,18 +12,49 @@ import java.util.*;
 public class AllocationService {
 
 
-    private final EmailService emailService;
+    private final CourseService courseService;
+
+    private final StudentRepository studentRepository;
 
     @Autowired
-    public AllocationService(EmailService emailService) {
-        this.emailService = emailService;
+    public AllocationService(CourseService courseService,  StudentRepository studentRepository) {
+        this.courseService = courseService;
+        this.studentRepository = studentRepository;
     }
 
-    public void startAllocationProcess() {
+    public void startAllocationProcess(Course course) {
 
-        Course course = TextReader.shapeInput("/Users/tudorpop/Documents/TudorPop/Personal/Atrium/atrium/src/main/java/ro/upt/atrium/helper/example5.txt");
+//        Course course_test = TextReader.shapeInput("/Users/tudorpop/Documents/TudorPop/Personal/Atrium/atrium/src/main/java/ro/upt/atrium/helper/example5.txt");
+//        Course crs = courseService.getCourse(Long.parseLong("2"));
         standardAllocation(course);
 
+    }
+
+    public void galeShapleyAllocation(Course course) {
+
+        List<Student> students = new ArrayList<>(course.getStudents());
+
+        Map<Long, ArrayList<Student>> groups = new HashMap<>();
+        course.getSlots().stream().forEachOrdered(slot -> groups.put(slot.getSlotid(), new ArrayList<>(0)));
+
+        int round = 0;
+
+        while (!students.isEmpty()) {
+            allocateStudents(students, groups, course, round);
+
+
+            round++;
+        }
+
+    }
+
+    private void allocateStudents(List<Student> students, Map<Long, ArrayList<Student>> groups, Course course, int round) {
+        for (int i = 0; i < students.size(); i++) {
+            Student student = students.get(i);
+            Choice choice = student.getChoices().stream().filter(c -> c.getCourse().equals(course)).findFirst().orElse(null);
+
+            groups.get(choice.getPreferredSlots().get(round).getSlotid()).add(student);
+        }
     }
 
     public void standardAllocation(Course course) {
@@ -67,7 +95,7 @@ public class AllocationService {
                 }
             }
 
-            if (!notfound){
+            if (!notfound) {
                 remainedStudents.add(students.get(i));
             }
 
@@ -98,15 +126,12 @@ public class AllocationService {
 
         CSVWriter.printResult(course, groups);
 
-//
-//        String subject = "UPT Allocation for course " + course.getCourseName();
-//        String message = "You've been allocated to the slot: MONDAY, 12:00 - 14:00";
-//        emailService.sendEmail("pop.tudor1@gmail.com", subject, message);
+        course.setStudents(students);
+        course.getStudents().addAll(remainedStudents);
+        course.setFinalized(true);
 
-    }
+        courseService.saveCourse(course);
 
-
-    public void galeShapleyAllocation(Course course) {
     }
 
 }

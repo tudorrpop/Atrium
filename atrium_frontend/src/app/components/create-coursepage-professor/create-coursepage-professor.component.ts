@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PopUpSlotComponent } from '../pop-up-slot/pop-up-slot.component';
 import { SlotService } from '../service/slot.service';
 import { CookieService } from 'ngx-cookie-service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-create-coursepage-professor',
@@ -37,7 +38,7 @@ export class CreateCoursepageProfessorComponent implements OnInit{
     
     editSlot(id: number){
 
-      const index = this.slots.findIndex(item => item.id === id);
+      const index = this.slots.findIndex(item => item.slotid === id);
       const slot = this.slots[index];
 
       const dialogRef = this.dialog.open(PopUpSlotComponent, {
@@ -47,7 +48,7 @@ export class CreateCoursepageProfessorComponent implements OnInit{
 
       dialogRef.afterClosed().subscribe((result: boolean) => {
         if (result) {
-          const index = this.slots.findIndex(item => item.id === this.slotService.getData().id);
+          const index = this.slots.findIndex(item => item.slotid === this.slotService.getData().slotid);
           this.slots[index] = this.slotService.getData();
 
         } else {
@@ -58,12 +59,12 @@ export class CreateCoursepageProfessorComponent implements OnInit{
     }
 
     removeSlot(id: number): void {
-      this.slots = this.slots.filter((s) => s.id !== id);
+      this.slots = this.slots.filter((s) => s.slotid !== id);
     }
 
     createCourse(){
       const course = new Course(this.courseName, this.algorithm,
-        this.preferencesDeadline, this.slots);
+        moment(this.preferencesDeadline, "YYYY-M-D").toDate(), this.slots);
 
       let professorEmail: string = this.cookieService.get('email');
         

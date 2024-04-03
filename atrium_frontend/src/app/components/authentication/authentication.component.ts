@@ -16,7 +16,8 @@ export class AuthenticationComponent {
 
   user: User = new User();
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,
+    private router: Router) {}
 
   
   async login(): Promise<void> {
@@ -28,5 +29,9 @@ export class AuthenticationComponent {
     } catch (error) {
       console.error('Authentication error:', error);
     }
+  }
+
+  goAdmin(): void{
+    this.router.navigate(['./authenticationadmin']);
   }
 }

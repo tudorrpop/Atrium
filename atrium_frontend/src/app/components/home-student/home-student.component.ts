@@ -18,7 +18,7 @@ import { Course } from 'src/app/classes/course';
 export class HomeStudentComponent {
 
   choices: Choice[] = [];
-
+  color: string = '';
   title = 'angular-mateiral';
 
   ngOnInit(): void {
@@ -42,15 +42,18 @@ export class HomeStudentComponent {
   }
 
   navigateToChoice(choiceid: number| undefined ){
-    if (choiceid !== undefined) {
 
-      if (this.choices.find(choice => choice.choiceid === choiceid)?.allocated === true)
-        this.router.navigate(['/allocationstudent', choiceid]);
-      else
-        this.router.navigate(['/coursepage-student', choiceid]);
-    } else {
-      console.error('CourseId is undefined');
-    }
+    this.router.navigate(['/coursepage-student', choiceid]);
+
+    // if (choiceid !== undefined) {
+
+    //   if (this.choices.find(choice => choice.choiceid === choiceid)?.allocated === true)
+    //     this.router.navigate(['/allocationstudent', choiceid]);
+    //   else
+    //     this.router.navigate(['/coursepage-student', choiceid]);
+    // } else {
+    //   console.error('CourseId is undefined');
+    // }
   }
 
   getChoices(): void{

@@ -10,13 +10,15 @@ import ro.upt.atrium.service.CourseService;
 import ro.upt.atrium.service.SlotService;
 import ro.upt.atrium.service.UserService;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/")
 public class CourseController {
+
+    @Autowired
+    private AllocationController allocationController;
 
     @Autowired
     private CourseService courseService;
@@ -30,7 +32,7 @@ public class CourseController {
     public ResponseEntity<List<Course>> getAllCourses(@RequestParam String email) {
 
         User user = userService.getUser(email);
-        List<Course> courses = ((Professor)user).getCourses();
+        List<Course> courses = ((Professor) user).getCourses();
 
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
@@ -51,25 +53,41 @@ public class CourseController {
     }
 
 
-
     @GetMapping("/course/{courseid}")
-    public ResponseEntity<Course> getCourse(@PathVariable Long courseid) {
+    public ResponseEntity<CourseDTO> getCourse(@PathVariable Long courseid) {
         Course course = courseService.getCourse(courseid);
 
-        if (course.getProfessor() == null)
-            System.out.println("NULL");
+        Map<Long, List<Student>> groups = new HashMap<>();
+        course.getSlots().forEach(slot -> groups.put(slot.getSlotid(), new ArrayList<>(0)));
 
-        System.out.println(course.getProfessor().getName());
-        return new ResponseEntity<>(course, HttpStatus.OK);
+        List<Long> idlist = new ArrayList<>();
+        course.getStudents().forEach(s -> idlist.add(s.getStudentid()));
+        System.out.println(idlist);
+
+        course.getStudents().forEach(student -> {
+            Choice choice = student.getChoices().stream().filter(c -> c.getCourse().equals(course)).findFirst().orElse(null);
+            Slot slot = choice.getPreferredSlots().get(0);
+            groups.get(slot.getSlotid()).add(student);
+        });
+
+        System.out.println("Test");
+        CourseDTO courseDTO = new CourseDTO(course.getCourseName(), course.getAlgorithm(), course.getPreferencesDeadline(),
+                course.getProfessor(), course.getSlots(), course.getStudents(), course.isFinalized(), groups);
+
+//        System.out.println(courseDTO);
+        return new ResponseEntity<>(courseDTO, HttpStatus.CREATED);
+
     }
 
 
     @PostMapping("/create")
     public ResponseEntity<Course> createCourse(@RequestBody Course course, @RequestParam String email) {
 
+        System.out.println(course.getPreferencesDeadline());
+
         Professor professor = (Professor) userService.getUser(email);
 
-        if (!course.getSlots().isEmpty()){
+        if (!course.getSlots().isEmpty()) {
             for (Slot slot : course.getSlots()) {
                 slotService.createSlot(slot);
             }

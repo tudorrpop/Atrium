@@ -3,14 +3,14 @@ import { Time } from "./time";
 
 
 export class Slot {
-    id?: number ;
+    slotid?: number ;
     
     day: Day ;
     time: Time ;
     capacity: number;
 
     constructor(day: Day, time: Time, capacity: number) {
-        this.id = Math.random();
+        this.slotid = Math.random();
         this.day = day;
         this.time = time;
         this.capacity = capacity;

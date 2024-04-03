@@ -1,6 +1,7 @@
 package ro.upt.atrium.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -8,9 +9,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Getter
@@ -28,8 +27,6 @@ public class Course implements Serializable {
     private String algorithm;
 
     private LocalDate preferencesDeadline;
-
-
     @Setter
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "professor_id", referencedColumnName = "professorid")
@@ -42,16 +39,22 @@ public class Course implements Serializable {
     @JsonIgnore
     private List<Student> students;
 
+    private boolean finalized;
+
     public Course() {
     }
 
     public Course(String courseName, String algorithm, LocalDate preferencesDeadline, List<Slot> slots) {
         this.courseName = courseName;
         this.algorithm = algorithm;
+        System.out.println(preferencesDeadline);
         this.preferencesDeadline = preferencesDeadline;
 
         this.students = new ArrayList<>();
         this.slots = slots;
+
+        finalized = false;
+
     }
     public void enrollStudentIntoCourse(Student student){
         students.add(student);

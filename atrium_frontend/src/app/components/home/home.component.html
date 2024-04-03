@@ -21,7 +21,11 @@
                         <div class="card-body">
                             <img src="../../../assets/test/general.jpg" alt="POO Card">
                         </div>
-                        <div class="card-footer">
+
+                        <div *ngIf="course?.finalized" class="card-footer" style="background-color: rgba(0, 128, 0, 0.669);">
+                            <p style="text-align: center; margin: 0%;">{{ course?.preferencesDeadline | date:'dd.MM.yyyy' }}</p>
+                        </div>
+                        <div *ngIf="!course?.finalized" class="card-footer" style="background-color: rgba(255, 0, 0, 0.731);">
                             <p style="text-align: center; margin: 0%;">{{ course?.preferencesDeadline | date:'dd.MM.yyyy' }}</p>
                         </div>
                     </div>

@@ -5,11 +5,19 @@
                 <!-- Centered "Atrium" on the left -->
                 <a class="navbar-brand" href="#" style="font-size: 30px; font-family: 'Arial', sans-serif; color: white;">Atrium</a>
             </div>
-          </nav>
-          
-          
-          
 
+             <!-- Right-aligned buttons -->
+            <div class="navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="goAdmin()">
+                        <span style="font-family: 'Arial', sans-serif; margin-right: 20px;"> Admin</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+          
         <div class="content">
             <div class="authentication">
                 <img style="height: 100px; width: 100px;" src="../../../assets/logo/uptlogo2.png" >

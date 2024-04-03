@@ -1,0 +1,30 @@
+html, body{
+    max-height: 150px;
+}
+
+.content{
+    width: 450px;
+    background-color: #171A18;
+    height: 300px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.buttons{
+    margin-top: 10px;
+}
+
+.back{
+    color: white;
+    background-color: #3c8ccc;
+    border: none;
+}
+
+.back:hover{
+    background-color: #3c7cb4;
+}
+
+

@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { Course } from 'src/app/classes/course';
 import { AuthService } from './auth-service';
 import { CookieService } from 'ngx-cookie-service';
+import { CourseDTO } from 'src/app/classes/coursedto';
 
 @Injectable({
   providedIn: 'root',
@@ -39,8 +40,8 @@ export class CourseService {
     return this.httpClient.get<Course[]>(`${this.baseUrl}/all`, { headers: this.headers, params });
   }
 
-  public getCourse(courseid: number | undefined): Observable<Course>{
-    return this.httpClient.get<Course>(`http://localhost:8083/course/${courseid}`);
+  public getCourse(courseid: number | undefined): Observable<CourseDTO>{
+    return this.httpClient.get<CourseDTO>(`http://localhost:8083/course/${courseid}`);
   }
 
   public deleteCourse(courseid: number | undefined): Observable<void>{
@@ -57,10 +58,10 @@ export class CourseService {
     return this.httpClient.post<Course>('http://localhost:8083/create', course, {headers, params});
   }
 
-  public allocateStudents(): Observable<Course>{
+  public allocateStudents(courseid: number | undefined): Observable<CourseDTO>{
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post<Course>('http://localhost:8083/allocate', null, {headers});
+    return this.httpClient.post<CourseDTO>(`http://localhost:8083/allocate/${courseid}`, null, {headers});
   }
 
 }

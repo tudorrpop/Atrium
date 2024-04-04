@@ -17,22 +17,6 @@ import java.util.Objects;
 @Service
 public class TextReader {
 
-    private static SlotRepository slotRepository = null;
-    private static StudentRepository studentRepository = null;
-
-    private static ProfessorRepository professorRepository = null;
-
-    private static CourseRepository courseRepository = null;
-
-    @Autowired
-    public TextReader(SlotRepository slotRepository, StudentRepository studentRepository, ProfessorRepository professorRepository,
-                      CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
-        this.slotRepository = slotRepository;
-        this.studentRepository = studentRepository;
-        this.professorRepository = professorRepository;
-    }
-
     public static Course shapeInput(String filePath) {
 
         Course course = new Course();
@@ -92,13 +76,12 @@ public class TextReader {
             }
         }
 
-        course.setProfessor(professorRepository.findByEmail("atrium.professor@uptro29158.onmicrosoft.com"));
+        course.setProfessor(null);
         course.setAlgorithm("");
         course.setPreferencesDeadline(null);
         course.setStudents(new ArrayList<>());
         course.setSlots(new ArrayList<>());
         course.setFinalized(false);
-//        course.setGroups(new ArrayList<>());
     }
 
     private static ArrayList<Slot> createSlots(BufferedReader reader) throws IOException {
@@ -144,7 +127,7 @@ public class TextReader {
 
         }
 
-        slotRepository.saveAll(slots);
+//        slotRepository.saveAll(slots);
 
         return slots;
     }
@@ -231,7 +214,7 @@ public class TextReader {
             }
         }
 
-        studentRepository.saveAll(students);
+//        studentRepository.saveAll(students);
         return students;
     }
 

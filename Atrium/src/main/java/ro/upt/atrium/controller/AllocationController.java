@@ -32,22 +32,23 @@ public class AllocationController {
     public ResponseEntity<CourseDTO> createCourse(@PathVariable Long courseid) {
         Course course = courseService.getCourse(courseid);
 
-
         System.out.println(courseid);
         allocationService.startAllocationProcess(course);
 
-        Map<Long, List<Student>> groups = new HashMap<>();
-        course.getSlots().forEach(slot -> groups.put(slot.getSlotid(), new ArrayList<>(0)));
+//        Map<Long, List<Student>> groups = new HashMap<>();
+//        course.getSlots().forEach(slot -> groups.put(slot.getSlotid(), new ArrayList<>(0)));
+//
+//        course.getStudents().forEach(student -> {
+//            Choice choice = student.getChoices().stream().filter(c -> c.getCourse().equals(course)).findFirst().orElse(null);
+//            Slot slot = choice.getPreferredSlots().get(0);
+//            groups.get(slot.getSlotid()).add(student);
+//        });
+//
+//        System.out.println("Test");
+//        CourseDTO courseDTO = new CourseDTO(course.getCourseName(), course.getAlgorithm(), course.getPreferencesDeadline(),
+//                course.getProfessor(), course.getSlots(), course.getStudents(), course.isFinalized(), groups);
 
-        course.getStudents().forEach(student -> {
-            Choice choice = student.getChoices().stream().filter(c -> c.getCourse().equals(course)).findFirst().orElse(null);
-            Slot slot = choice.getPreferredSlots().get(0);
-            groups.get(slot.getSlotid()).add(student);
-        });
-
-        System.out.println("Test");
-        CourseDTO courseDTO = new CourseDTO(course.getCourseName(), course.getAlgorithm(), course.getPreferencesDeadline(),
-                course.getProfessor(), course.getSlots(), course.getStudents(), course.isFinalized(), groups);
+        CourseDTO courseDTO = null;
 
         return new ResponseEntity<>(courseDTO, HttpStatus.CREATED);
     }

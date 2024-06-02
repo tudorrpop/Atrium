@@ -1,40 +1,41 @@
 Day: MONDAY Time: TIME_08_10
-Student11
-Student19
+Student12
+
+Day: MONDAY Time: TIME_10_12
+Student7
+
+Day: MONDAY Time: TIME_12_14
+Student15
+Student20
+Student24
 Student25
-Student23
-Student5
+Student11
+Student21
+
+Day: MONDAY Time: TIME_14_16
+Student17
+Student18
+
+Day: MONDAY Time: TIME_16_18
+Student13
+Student2
+Student4
+Student16
+Student6
+
+Day: MONDAY Time: TIME_18_20
+Student1
+Student8
 Student14
 
-Day: TUESDAY Time: TIME_10_12
-Student9
-Student13
-Student20
-Student21
-Student24
-
-Day: WEDNESDAY Time: TIME_16_18
-Student18
-Student10
-Student12
-Student30
-Student16
-
-Day: THURSDAY Time: TIME_12_14
-Student15
-Student22
-Student27
-Student7
-Student28
-Student29
-Student31
-Student1
-Student17
-
-Day: FRIDAY Time: TIME_08_10
+Day: TUESDAY Time: TIME_12_14
 Student3
+Student10
+Student19
+Student23
+
+Day: WEDNESDAY Time: TIME_12_14
+Student9
+Student22
 Student26
-Student8
-Student6
-Student4
 

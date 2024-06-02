@@ -33,4 +33,13 @@ export class UserService {
 
     return this.httpClient.get<User>(`http://localhost:8083/checkUser`, { params });
   }
+
+  public authenticateAdminUser(username: string, password: string): Observable<boolean>{
+    const params = new HttpParams()
+        .set('username', username || '')
+        .set('password', password || '');
+    
+    return this.httpClient.get<boolean>(`http://localhost:8083/authenticateAdminUser`, { params });
+  }
+
 }

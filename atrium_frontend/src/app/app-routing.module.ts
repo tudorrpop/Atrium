@@ -13,6 +13,7 @@ import { HomeStudentComponent } from './components/home-student/home-student.com
 import { BlankPageComponent } from 'src/blank';
 import { AllocationPageStudentComponent } from './components/allocation-page-student/allocation-page-student.component';
 import { AuthenticationAdminComponent } from './components/authentication-admin/authentication-admin.component';
+import { AdminPageComponent } from './components/admin-page/admin-page.component';
 
 const routes: Routes = [
   { path: 'blank', component: BlankPageComponent },
@@ -29,7 +30,9 @@ const routes: Routes = [
   { path: 'profile', component: ProfilepageComponent},
   { path: 'enrollmentpopup', component: PopUpCourseEnrollmentComponent},
   { path: 'allocationstudent', component: AllocationPageStudentComponent},
-  { path: 'authenticationadmin', component: AuthenticationAdminComponent}
+  { path: 'authenticationadmin', component: AuthenticationAdminComponent},
+  { path: 'adminauthentication', component: AuthenticationAdminComponent},
+  { path: 'adminpage', component: AdminPageComponent}
 ];
 
 @NgModule({

@@ -64,4 +64,8 @@ export class CourseService {
     return this.httpClient.post<CourseDTO>(`http://localhost:8083/allocate/${courseid}`, null, {headers});
   }
 
+  public getAdminCourses(): Observable<Course[]>{
+    return this.httpClient.get<Course[]>(`${this.baseUrl}/admincourses`);
+  }
+
 }

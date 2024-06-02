@@ -26,9 +26,10 @@ public class AllocationService {
 
     public void startAllocationProcess(Course course) {
 
-        Course course_test = TextReader.shapeInput("/Users/tudorpop/Documents/TudorPop/Personal/Atrium/atrium/src/main/java/ro/upt/atrium/helper/example5.txt");
+        Course course_test = TextReader.shapeInput("/Users/tudorpop/Documents/TudorPop/Personal/Atrium/atrium/src/main/java/ro/upt/atrium/helper/example2.txt");
 
-        galeShapleyAllocation(course_test);
+        standardAllocation(course);
+//        galeShapleyAllocation(course_test);
 
 //        standardAllocation(course);
 
@@ -50,7 +51,8 @@ public class AllocationService {
         int round = 0;
         int flag = 0;
 
-        while (!students.isEmpty()) {
+        // conditie de schimbat
+        while (!students.isEmpty() ) {
 
             System.out.println("Number of students: " + students.size());
             allocateStudents(students, intermediateAllocation, capacities, course);
@@ -79,6 +81,10 @@ public class AllocationService {
                 System.out.println("GOL");
         }
 
+        /////// ALOCARE FINALA ///////
+
+
+
         CSVWriter.printResult(course, groups);
 
     }
@@ -103,7 +109,7 @@ public class AllocationService {
                 int numberOfOverAllocation = entry.getValue().size() - capacities.get(entry.getKey());
                 long seed = 123456;
 
-                Random random = new Random(seed);
+                Random random = new Random(seed); // de schimbat
                 Collections.shuffle(entry.getValue(), random);
 
                 List<Student> unluckyStudents = entry.getValue().subList(0, numberOfOverAllocation);

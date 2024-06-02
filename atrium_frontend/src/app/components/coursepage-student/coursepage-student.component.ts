@@ -157,4 +157,41 @@ export class CoursepageStudentComponent {
       }
     );
   }
+
+
+  public mapDayToString(day: Day | undefined): string {
+    switch (day) {
+      case Day.MONDAY:
+        return 'Monday';
+      case Day.TUESDAY:
+        return 'Tuesday';
+      case Day.WEDNESDAY:
+        return 'Wednesday';
+      case Day.THURSDAY:
+        return 'Thursday';
+      case Day.FRIDAY:
+        return 'Friday';
+      default:
+        return '';
+    }
+  }
+  
+  public mapTimeToString(time: Time | undefined): string {
+    switch (time) {
+      case Time.TIME_08_10:
+        return '08:00 - 10:00';
+      case Time.TIME_10_12:
+        return '10:00 - 12:00';
+      case Time.TIME_12_14:
+        return '12:00 - 14:00';
+      case Time.TIME_14_16:
+        return '14:00 - 16:00';
+      case Time.TIME_16_18:
+        return '16:00 - 18:00';
+      case Time.TIME_18_20:
+        return '18:00 - 20:00';
+      default:
+        return '';
+    }
+  }
 }

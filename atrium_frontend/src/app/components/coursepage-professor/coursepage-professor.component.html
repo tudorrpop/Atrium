@@ -37,12 +37,14 @@
                 <p style="font-size: 25px; color: white;" >Course Name: {{ courseDTO?.courseName }}</p>
                 <p style="font-size: 25px; color: white;" >Teaching Professor: {{ courseDTO?.professor?.name }}</p>
                 <p style="font-size: 25px; color: white;" >Prefferences Deadline: {{ courseDTO?.preferencesDeadline | date:'dd.MM.yyyy' }}</p>
-                <p style="font-size: 25px; color: white;" [ngSwitch]="course?.algorithm">
+                <p style="font-size: 25px; color: white;" >Students Allocation Algorithm: {{ getAlgorithm(courseDTO?.algorithm) }}</p>
+
+                <!-- <p style="font-size: 25px; color: white;" [ngSwitch]="course?.algorithm">
                     Students Allocation Algorithm:
                     <ng-container *ngSwitchCase="'STANDARD_ALGORITHM'">Standard Algorithm</ng-container>
                     <ng-container *ngSwitchCase="'GALE_SHAPLEY_ALGORITHM'">Gale Shapley Algorithm</ng-container>
                     <ng-container *ngSwitchDefault> - No Algorithm - </ng-container>    
-                </p>
+                </p> -->
                 <p style="font-size: 25px; color: white;" >Available Slots:</p>
                 <div class="slots">
                     <div class="slot">

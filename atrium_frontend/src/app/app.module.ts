@@ -31,6 +31,7 @@ import { PopUpChoiceChangesComponent } from './components/pop-up-choice-changes/
 import { PopUpAllocateStudentsComponent } from './components/pop-up-allocate-students/pop-up-allocate-students.component';
 import { DatePipe } from '@angular/common';
 import { AuthenticationAdminComponent } from './components/authentication-admin/authentication-admin.component';
+import { AdminPageComponent } from './components/admin-page/admin-page.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { AuthenticationAdminComponent } from './components/authentication-admin/
     AllocationPageStudentComponent,
     PopUpChoiceChangesComponent,
     PopUpAllocateStudentsComponent,
-    AuthenticationAdminComponent
+    AuthenticationAdminComponent,
+    AdminPageComponent
   ],
 
   imports: [

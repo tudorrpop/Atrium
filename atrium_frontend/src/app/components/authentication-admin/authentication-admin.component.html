@@ -1,22 +1,28 @@
 <html lang="en">
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #343D47;">
-            <div class="container-fluid">
-                <!-- Centered "Atrium" on the left -->
-                <a class="navbar-brand" href="#" style="font-size: 30px; font-family: 'Arial', sans-serif; color: white;">Atrium</a>
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #343D47;">
+        <div class="container-fluid">
+            <!-- Centered "Atrium" on the left -->
+            <a class="navbar-brand" href="#">
+                <img width="130px" src="../../../assets/logo/logo_svg.svg" alt="Atrium Logo" >
+                <!-- <img src="../../../assets/logo/logo_f1.png" alt="Atrium Logo" style="height: 45px; width: 120px;"> -->
+            </a>
+        </div>
 
-             <!-- Right-aligned buttons -->
-            <div class="navbar-collapse justify-content-end">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" (click)="goMember()">
-                        <span style="font-family: 'Arial', sans-serif; margin-right: 20px;"> Member</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+         <!-- Right-aligned buttons -->
+        <div class="navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" (click)="goMember()">
+                        <div style="display: flex; align-items: center;">
+                            <i style="font-size: 22px; margin-right: 5px;" class="fa-regular fa-user"></i>
+                            <span style="font-family: 'Arial', sans-serif; margin-right: 20px; font-size: 22px;"> Member</span>
+                        </div>    
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
         <div class="content">
             <div class="authentication">
@@ -25,16 +31,16 @@
 
                 <div class="input-group mb-3" style="margin-top: 5px;">
                     <span class="input-group-text" id="basic-addon1">@</span>
-                    <input type="text" class="form-control" placeholder="Your Username" aria-label="Email" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control" placeholder="Your Username" aria-label="Email" aria-describedby="basic-addon1" #usernameInput>
                 </div>
 
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">#</span>
-                    <input type="password" class="form-control" placeholder="Your Password" aria-label="Password" aria-describedby="basic-addon1">
+                    <input type="password" class="form-control" placeholder="Your Password" aria-label="Password" aria-describedby="basic-addon1" #passwordInput>
                 </div>     
                 
                 <div class="buttons">
-                    <button type="button" style="margin-top: 10px;" class="btn btn-outline-secondary" (click)="onButtonPressed()">Sign in</button>
+                    <button type="button" style="margin-top: 10px;" class="btn btn-outline-secondary" (click)="onButtonPressed(usernameInput.value, passwordInput.value)">Sign in</button>
                 </div>
             </div>
         </div>

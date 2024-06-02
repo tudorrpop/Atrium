@@ -67,6 +67,9 @@ export class CreateCoursepageProfessorComponent implements OnInit{
         moment(this.preferencesDeadline, "YYYY-M-D").toDate(), this.slots);
 
       let professorEmail: string = this.cookieService.get('email');
+
+      console.log(course);
+      console.log('Course object as JSON:', JSON.stringify(course, null, 2));
         
       this.courseService.createCourse(course, professorEmail)
         .subscribe(

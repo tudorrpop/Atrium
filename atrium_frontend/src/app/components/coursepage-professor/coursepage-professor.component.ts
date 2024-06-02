@@ -38,6 +38,7 @@ export class CoursepageProfessorComponent {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.courseid = +params.get('courseId')!;
         this.getCourse(this.courseid);
+        console.log(this.course);
     });
   }
 
@@ -192,6 +193,18 @@ public downloadOutline(): void {
 
 
 
+public getAlgorithm(algorithm: string | undefined): string{
+
+  console.log(algorithm);
+  switch (algorithm) {
+    case 'STANDARD_ALGORITHM':
+      return 'Standard Algorithm';
+    case 'GALE_SHAPLEY_ALGORITHM':
+      return 'Gale Shapley Algorithm';
+    default:
+      return '';
+  }
+}
 
 
 

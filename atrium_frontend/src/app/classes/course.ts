@@ -1,22 +1,18 @@
-import { Group } from "./group";
 import { Professor } from "./professor";
 import { Slot } from "./slot";
-import { Student } from "./student";
-import { User } from "./user";
-import * as moment from 'moment';
 
 export class Course {
 
     courseid?: number | undefined 
     
-    algorithm: string | undefined;
     courseName: string | undefined;
-    preferencesDeadline: Date | undefined;
-    slots: Slot[] | undefined;
-
     professor: Professor | undefined;
+
+    algorithm: string | undefined;
+    preferencesDeadline: Date | undefined;
     finalized: boolean | undefined;
-    groups: Group[] | undefined;
+
+    slots: Slot[] | undefined;
 
     constructor(
         courseName: string,
@@ -29,9 +25,6 @@ export class Course {
         this.preferencesDeadline = preferencesDeadline;
         this.slots = slots
       }
-
-
-    public getcurrentDate(): Date | undefined{
-      return this.preferencesDeadline
-    }
 }
+
+

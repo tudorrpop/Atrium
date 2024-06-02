@@ -48,4 +48,10 @@ public class UserController {
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
+
+    @GetMapping("/authenticateAdminUser")
+    public ResponseEntity<Boolean> getUser(@RequestParam String username, @RequestParam String password) {
+        return new ResponseEntity<>(userService.validAdministrator(username,password), HttpStatus.OK);
+    }
 }

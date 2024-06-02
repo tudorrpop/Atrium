@@ -99,4 +99,13 @@ public class CourseController {
 
         return new ResponseEntity<>(returnedCourse, HttpStatus.CREATED);
     }
+
+
+    @GetMapping("/admincourses")
+    public ResponseEntity<List<Course>> getAdminCourses() {
+        List<Course> courses = courseService.getAllCourses().stream().filter(Course::isFinalized).toList();
+        return new ResponseEntity<>(courses, HttpStatus.OK);
+    }
+
+
 }

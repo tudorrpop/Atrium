@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/classes/user';
 
@@ -11,7 +12,9 @@ export class UserService {
   private baseUrl="http://localhost:8083";
   private readonly headers: HttpHeaders;
 
-  constructor(private httpClient: HttpClient) { 
+  constructor(private httpClient: HttpClient,
+    private cookieService: CookieService
+  ) { 
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
       // 'Authorization': `Bearer ${accessToken}`
@@ -29,7 +32,6 @@ export class UserService {
     const params = new HttpParams()
         .set('email', email || '')
         .set('name', name || '');
-
 
     return this.httpClient.get<User>(`http://localhost:8083/checkUser`, { params });
   }

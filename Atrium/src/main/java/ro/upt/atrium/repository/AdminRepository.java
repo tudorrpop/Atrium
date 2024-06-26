@@ -6,6 +6,5 @@ import ro.upt.atrium.model.Administrator;
 
 @Repository
 public interface AdminRepository extends JpaRepository<Administrator, Long> {
-
     Administrator findByUsername(String username);
 }

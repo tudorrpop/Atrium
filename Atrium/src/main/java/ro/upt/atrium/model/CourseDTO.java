@@ -1,4 +1,4 @@
-package ro.upt.atrium.controller;
+package ro.upt.atrium.model;
 
 import ro.upt.atrium.model.Professor;
 import ro.upt.atrium.model.Slot;

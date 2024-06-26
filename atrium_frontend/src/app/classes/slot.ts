@@ -11,8 +11,10 @@ export class Slot {
 
     constructor(day: Day, time: Time, capacity: number) {
         this.slotid = Math.random();
+        console.log(this.slotid);
         this.day = day;
         this.time = time;
         this.capacity = capacity;
       }
+
 }

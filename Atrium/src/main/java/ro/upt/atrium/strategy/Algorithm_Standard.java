@@ -1,23 +1,27 @@
 package ro.upt.atrium.strategy;
 
-
 import ro.upt.atrium.model.Choice;
 import ro.upt.atrium.model.Course;
 import ro.upt.atrium.model.Slot;
 import ro.upt.atrium.model.Student;
+import ro.upt.atrium.service.CourseService;
 
 import java.util.*;
 
-public class Algorithm_Version1 implements Algorithm {
+public class Algorithm_Standard implements Algorithm {
 
-    public Course allocateStudents(Course course){
+    public Algorithm_Standard() {
+
+    }
+
+    public Course startAllocationprocess(Course course){
         List<Student> students = new ArrayList<>(course.getStudents());
         List<Student> remainedStudents = new ArrayList<>(0);
 
         Map<Long, ArrayList<Student>> groups = new HashMap<>();
-        course.getSlots().forEach(slot -> groups.put(slot.getSlotid(), new ArrayList<>(0)));
+        course.getSlots().stream().forEachOrdered(slot -> groups.put(slot.getSlotid(), new ArrayList<>(0)));
 
-        boolean notfound;
+        boolean notfound = false;
 
         for (int i = 0; i < students.size(); i++) {
             notfound = false;
@@ -47,13 +51,13 @@ public class Algorithm_Version1 implements Algorithm {
                 }
             }
 
-            if (!notfound){
+            if (!notfound) {
                 remainedStudents.add(students.get(i));
             }
 
             System.out.println("Studentul " + students.get(i).getName() + " a fost alocat la slotul " +
-                    Objects.requireNonNull(Objects.requireNonNull(students.get(i).getChoices().stream().filter(x -> x.getCourse().equals(course))
-                            .findFirst().orElse(null)).getPreferredSlots().stream().findFirst().orElse(null)).getTime());
+                    students.get(i).getChoices().stream().filter(x -> x.getCourse().equals(course))
+                            .findFirst().orElse(null).getPreferredSlots().stream().findFirst().orElse(null).getTime());
         }
 
         for (int i = 0; i < remainedStudents.size(); i++) {
@@ -70,11 +74,19 @@ public class Algorithm_Version1 implements Algorithm {
                     choice.getGeneralSlots().clear();
 
                     choice.getPreferredSlots().add(course.getSlots().get(j));
-                    choice.getPreferredSlots().removeIf(s -> !s.getSlotid().equals(slotID)); // problema IN CAZUL IN CARE SLOTUL NU SE REGASESTE IN LISTA.
+                    choice.getPreferredSlots().removeIf(s -> !s.getSlotid().equals(slotID));
                     break;
                 }
             }
         }
+
+//        CSVWriter.printResult(course, groups);
+
+        course.setStudents(students);
+        course.getStudents().addAll(remainedStudents);
+        course.setFinalized(true);
+
         return course;
     }
+
 }

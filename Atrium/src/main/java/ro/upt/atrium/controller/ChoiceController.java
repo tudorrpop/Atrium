@@ -50,6 +50,8 @@ public class ChoiceController {
         List<Course> courses = courseService.getAllCourses();
 
         courses.removeAll(student.getCourses());
+        courses.removeIf(Course::isFinalized);
+
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
@@ -77,10 +79,6 @@ public class ChoiceController {
         student.enrollStudentIntoCourse(choice);
         student.getCourses().add(course);
         userService.saveUser(student);
-
-//        // Add student to the students list of the course.
-//        course.enrollStudentIntoCourse(student);
-//        courseService.saveCourse(course);
 
         return new ResponseEntity<>(choice, HttpStatus.CREATED);
     }

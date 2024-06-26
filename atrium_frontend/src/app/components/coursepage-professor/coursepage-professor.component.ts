@@ -84,6 +84,7 @@ export class CoursepageProfessorComponent {
           this.courseService.allocateStudents(this.courseid).subscribe(
             (response: CourseDTO) => {
               this.courseDTO = response;
+              this.router.navigate([`/home`]);
             },
             (error: HttpErrorResponse) => {
               alert(error.message);
@@ -100,6 +101,7 @@ export class CoursepageProfessorComponent {
       this.courseService.allocateStudents(this.courseid).subscribe(
         (response: CourseDTO) => {
           this.courseDTO = response;
+          this.router.navigate([`/home`]);
         },
         (error: HttpErrorResponse) => {
           alert(error.message);
@@ -158,37 +160,57 @@ export class CoursepageProfessorComponent {
 
 public downloadOutline(): void {
   const doc = new jspdf.jsPDF();
-  let yOffset = 10;
+  let yOffset = 20; // Initial yOffset, a bit larger for better top margin
+  const lineHeight = 10; // Line height for student names
 
-  doc.setFontSize(30).setFont('Times New Roman','bold');
-  doc.text(`Course: ${this.courseDTO?.courseName}`, 10, yOffset);
-  doc.setFontSize(20).setFont('Times New Roman','normal');
-  doc.text(`Teaching professor: ${this.courseDTO?.professor?.name}`, 10, yOffset + 10);
-  doc.text(`Professor contact email: ${this.courseDTO?.professor?.email}`, 10, yOffset + 20);
+  // Page settings
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const margin = 10;
+  const maxYOffset = pageHeight - margin;
+
+  // Helper function to add text and handle yOffset
+  const addText = (text: string, fontSize: number, isBold: boolean = false) => {
+    if (yOffset + lineHeight > maxYOffset) {
+      doc.addPage();
+      yOffset = margin;
+    }
+    doc.setFontSize(fontSize);
+    doc.setFont('Times New Roman', isBold ? 'bold' : 'normal');
+    doc.text(text, margin, yOffset);
+    yOffset += lineHeight;
+  };
+
+  // Add course and professor details
+  addText(`Course: ${this.courseDTO?.courseName}`, 20, true);
+  addText(`Teaching professor: ${this.courseDTO?.professor?.name}`, 15);
+  addText(`Professor contact email: ${this.courseDTO?.professor?.email}`, 15);
 
   const groups = this.courseDTO?.groups;
 
   if (groups) {
-      for (const [key, studentArray] of Object.entries(groups)) {
-          doc.setFontSize(15).setFont('Times New Roman', 'normal');
-          doc.text(`Slot: ${this.returnDayTimeGroup(parseInt(key, 10))}`, 10, yOffset + 40);
-          doc.text(`Assigned Students: `, 10, yOffset + 50);
-          // Increment yOffset for each group
-          yOffset += 60;
-          
-          studentArray.forEach((student: Student) => {
-              doc.setFontSize(10).setFont('Times New Roman', 'normal');
-              doc.text(`${student.name}`, 10, yOffset);
-              // Increment yOffset for each student
-              yOffset += 10;
-          });
+    for (const [key, studentArray] of Object.entries(groups)) {
+      addText(`Slot: ${this.returnDayTimeGroup(parseInt(key, 10))}`, 15, true);
+      addText(`Assigned Students:`, 15);
+
+      if(studentArray.length == 0){
+        addText(`empty slot`, 12);
+      }else{
+        studentArray.forEach((student: Student) => {
+          addText(`${student.name}`, 12);
+        });
       }
+
+      // Add some space between groups
+      yOffset += lineHeight;
+    }
   } else {
-      console.log("groups is undefined");
+    console.log("groups is undefined");
   }
 
   doc.save(`${this.courseDTO?.courseName}-allocation.pdf`);
 }
+
 
 
 

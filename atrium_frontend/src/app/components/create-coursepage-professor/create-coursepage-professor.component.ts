@@ -38,8 +38,13 @@ export class CreateCoursepageProfessorComponent implements OnInit{
     
     editSlot(id: number){
 
+      console.log(id);
+      console.log(this.slots);
+
       const index = this.slots.findIndex(item => item.slotid === id);
       const slot = this.slots[index];
+
+      console.log(slot);
 
       const dialogRef = this.dialog.open(PopUpSlotComponent, {
         data: { slot }
@@ -84,7 +89,13 @@ export class CreateCoursepageProfessorComponent implements OnInit{
     }
 
     openCourseCreationDialiog(){
-      const dialogRef = this.dialog.open(PopUpSlotComponent);
+      const counter = this.slots.length;
+
+      const dialogRef = this.dialog.open(PopUpSlotComponent, {
+        data: { counter }
+      });
+
+      console.log(counter);
 
       dialogRef.afterClosed().subscribe((result: boolean) => {
         if (result) {

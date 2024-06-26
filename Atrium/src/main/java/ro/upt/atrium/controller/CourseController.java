@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.upt.atrium.model.*;
-import ro.upt.atrium.repository.CourseRepository;
 import ro.upt.atrium.service.CourseService;
 import ro.upt.atrium.service.SlotService;
 import ro.upt.atrium.service.UserService;
@@ -74,7 +73,6 @@ public class CourseController {
         CourseDTO courseDTO = new CourseDTO(course.getCourseName(), course.getAlgorithm(), course.getPreferencesDeadline(),
                 course.getProfessor(), course.getSlots(), course.getStudents(), course.isFinalized(), groups);
 
-//        System.out.println(courseDTO);
         return new ResponseEntity<>(courseDTO, HttpStatus.CREATED);
 
     }

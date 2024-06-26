@@ -27,6 +27,10 @@ public class Course implements Serializable {
     private String algorithm;
 
     private LocalDate preferencesDeadline;
+
+    @Getter
+    private boolean finalized;
+
     @Setter
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "professor_id", referencedColumnName = "professorid")
@@ -38,8 +42,6 @@ public class Course implements Serializable {
     @ManyToMany(mappedBy = "courses", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Student> students;
-
-    private boolean finalized;
 
     public Course() {
     }

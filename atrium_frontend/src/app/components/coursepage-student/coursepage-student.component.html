@@ -37,7 +37,7 @@
       <div class="information">
           <p style="font-size: 25px; color: white;" >Course Name: {{choice?.course?.courseName}}</p>
           <p style="font-size: 25px; color: white;" >Teaching Professor: {{choice?.course?.professor?.name}}</p>
-          <p style="font-size: 25px; color: white;" >Preferences Deadline: 12.02.2024</p>
+          <p style="font-size: 25px; color: white;" >Preferences Deadline: {{choice?.course?.preferencesDeadline | date:'dd.MM.yyyy' }}</p>
           <p style="font-size: 25px; color: white;" [ngSwitch]="choice?.course?.algorithm">
             Students Allocation Algorithm:
             <ng-container *ngSwitchCase="'STANDARD_ALGORITHM'">Standard Algorithm</ng-container>
@@ -50,14 +50,18 @@
           <div class="example-container">
               <h2 style="color: white;">My preferred slots</h2>
               <div cdkDropList [cdkDropListData]="preferredSlots" class="example-list" (cdkDropListDropped)="drop($event)" >
-                <div *ngFor="let item of preferredSlots; let i = index" class="example-box" cdkDrag>Day: {{mapDayToString(item.day)}}, Time: {{mapTimeToString(item.time)}}<i style="margin-right: 10px;" class="fa-solid fa-bars"></i></div>
+                <div *ngFor="let item of preferredSlots; let i = index" class="example-box" cdkDrag>
+                  Day: {{mapDayToString(item.day)}}, Time: {{mapTimeToString(item.time)}}
+                  <i style="margin-right: 10px;" class="fa-solid fa-bars"></i></div>
               </div>
           </div>
             
           <div class="example-container">
               <h2 style="color: white;">All available slots</h2>
               <div cdkDropList [cdkDropListData]="generalSlots" class="example-list" (cdkDropListDropped)="drop($event)">
-                <div *ngFor="let item of generalSlots; let i = index" class="example-box" cdkDrag>Day: {{mapDayToString(item.day)}}, Time: {{mapTimeToString(item.time)}}<i style="margin-right: 10px;" class="fa-solid fa-bars"></i></div>
+                <div *ngFor="let item of generalSlots; let i = index" class="example-box" cdkDrag>
+                  Day: {{mapDayToString(item.day)}}, Time: {{mapTimeToString(item.time)}}
+                  <i style="margin-right: 10px;" class="fa-solid fa-bars"></i></div>
               </div>
           </div>
       </div>

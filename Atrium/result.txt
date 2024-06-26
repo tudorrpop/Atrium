@@ -1,41 +1,6 @@
-Day: MONDAY Time: TIME_08_10
-Student12
-
-Day: MONDAY Time: TIME_10_12
-Student7
-
-Day: MONDAY Time: TIME_12_14
-Student15
-Student20
-Student24
-Student25
-Student11
-Student21
-
-Day: MONDAY Time: TIME_14_16
-Student17
-Student18
-
-Day: MONDAY Time: TIME_16_18
-Student13
-Student2
-Student4
-Student16
-Student6
-
-Day: MONDAY Time: TIME_18_20
-Student1
-Student8
-Student14
-
 Day: TUESDAY Time: TIME_12_14
-Student3
-Student10
-Student19
-Student23
+Tudor-Antoniu Pop
 
-Day: WEDNESDAY Time: TIME_12_14
-Student9
-Student22
-Student26
+Day: FRIDAY Time: TIME_14_16
+Adrian Pop
 

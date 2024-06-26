@@ -1,4 +1,4 @@
-package ro.upt.atrium.controller;
+package ro.upt.atrium.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

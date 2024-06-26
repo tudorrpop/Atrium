@@ -29,27 +29,11 @@ public class AllocationController {
     AllocationService allocationService;
 
     @PostMapping("/allocate/{courseid}")
-    public ResponseEntity<CourseDTO> createCourse(@PathVariable Long courseid) {
-        Course course = courseService.getCourse(courseid);
+    public ResponseEntity<Course> startAllocationProcess(@PathVariable Long courseid) {
 
-        System.out.println(courseid);
+        Course course = courseService.getCourse(courseid);
         allocationService.startAllocationProcess(course);
 
-//        Map<Long, List<Student>> groups = new HashMap<>();
-//        course.getSlots().forEach(slot -> groups.put(slot.getSlotid(), new ArrayList<>(0)));
-//
-//        course.getStudents().forEach(student -> {
-//            Choice choice = student.getChoices().stream().filter(c -> c.getCourse().equals(course)).findFirst().orElse(null);
-//            Slot slot = choice.getPreferredSlots().get(0);
-//            groups.get(slot.getSlotid()).add(student);
-//        });
-//
-//        System.out.println("Test");
-//        CourseDTO courseDTO = new CourseDTO(course.getCourseName(), course.getAlgorithm(), course.getPreferencesDeadline(),
-//                course.getProfessor(), course.getSlots(), course.getStudents(), course.isFinalized(), groups);
-
-        CourseDTO courseDTO = null;
-
-        return new ResponseEntity<>(courseDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>(course, HttpStatus.CREATED);
     }
 }

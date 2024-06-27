@@ -19,18 +19,22 @@ export class PopUpSlotComponent implements OnInit{
   timeID: number | null = null;
   capacityS!: number;
 
+  counter!: number;
+
   constructor(private slotService: SlotService, 
     private dialog: MatDialogRef<PopUpSlotComponent>, 
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any){
 
-      if (data !== null){
-
-        this.slotid = data.slot.id;
-        this.dayID = this.getNumberDayValue(data.slot.day);
-        this.timeID = this.getNumberTimeValue(data.slot.time);
-        this.capacityS = data.slot.capacity;
-        
+      if (data) {
+        if (data.slot instanceof Slot) {
+          this.slotid = data.slot.id;
+          this.dayID = this.getNumberDayValue(data.slot.day);
+          this.timeID = this.getNumberTimeValue(data.slot.time);
+          this.capacityS = data.slot.capacity;
+        } else if (typeof data.counter === 'number') {
+          this.counter = data.counter;
+        }
       }
       
   }

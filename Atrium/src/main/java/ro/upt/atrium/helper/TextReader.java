@@ -1,6 +1,12 @@
 package ro.upt.atrium.helper;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ro.upt.atrium.model.*;
+import ro.upt.atrium.repository.CourseRepository;
+import ro.upt.atrium.repository.ProfessorRepository;
+import ro.upt.atrium.repository.SlotRepository;
+import ro.upt.atrium.repository.StudentRepository;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -8,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+@Service
 public class TextReader {
 
     public static Course shapeInput(String filePath) {
@@ -45,6 +52,7 @@ public class TextReader {
             e.printStackTrace();
         }
 
+//        courseRepository.save(course);
         return course;
     }
 
@@ -73,6 +81,7 @@ public class TextReader {
         course.setPreferencesDeadline(null);
         course.setStudents(new ArrayList<>());
         course.setSlots(new ArrayList<>());
+        course.setFinalized(false);
     }
 
     private static ArrayList<Slot> createSlots(BufferedReader reader) throws IOException {
@@ -117,6 +126,8 @@ public class TextReader {
             }
 
         }
+
+//        slotRepository.saveAll(slots);
 
         return slots;
     }
@@ -202,6 +213,8 @@ public class TextReader {
                 students.add(student);
             }
         }
+
+//        studentRepository.saveAll(students);
         return students;
     }
 

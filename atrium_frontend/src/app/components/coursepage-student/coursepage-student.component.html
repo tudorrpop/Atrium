@@ -1,15 +1,43 @@
 <body>
   <app-navbar></app-navbar>
 
+  <div class="contentAllocation" *ngIf="choice?.allocated">
+  
+    <div class="informationAllocation">
 
-  <div class="content-wrapper">
+        <p style="font-size: 70px; color: white; margin-top: 20px;" >{{choice?.course?.courseName}}</p>
+        <p style="font-size: 30px; color: white;" >Teaching Professor: {{choice?.course?.professor?.name}}</p>
+
+        <br>
+        <p style="font-size: 45px; color: white;" >You were assigned to the slot:</p>
+        <p style="font-size: 30px; color: white;" >
+          {{ getPreferredSlotDay() + ', ' + getPreferredSlotTime() }}
+        </p>
+
+        <!-- <img style="height: 130px; width: 140px; margin-top: 15px;" src="../../../assets/logo/checkicon.png" alt="">         -->
+        <!-- <div class="thick-arrow-down"></div> -->
+        <i style="color: green; margin-top: 15px;" class="fa-regular fa-circle-check fa-6x fa-beat"></i>
+
+    </div>
+  
+    <!-- <div class="buttons">
+        <button style="margin-right: 10px;" type="button" class="btn btn-primary back" (click)="goHome()">Back</button>
+        <button type="button" class="btn btn-secondary delete" (click)="dropCourse()">Drop Course</button>
+      </div> -->
+    
+  </div>
+
+
+
+
+  <div class="content-wrapper" *ngIf="!choice?.allocated">
 
     <div class="content">
 
       <div class="information">
           <p style="font-size: 25px; color: white;" >Course Name: {{choice?.course?.courseName}}</p>
           <p style="font-size: 25px; color: white;" >Teaching Professor: {{choice?.course?.professor?.name}}</p>
-          <p style="font-size: 25px; color: white;" >Preferences Deadline: 12.02.2024</p>
+          <p style="font-size: 25px; color: white;" >Preferences Deadline: {{choice?.course?.preferencesDeadline | date:'dd.MM.yyyy' }}</p>
           <p style="font-size: 25px; color: white;" [ngSwitch]="choice?.course?.algorithm">
             Students Allocation Algorithm:
             <ng-container *ngSwitchCase="'STANDARD_ALGORITHM'">Standard Algorithm</ng-container>
@@ -22,14 +50,18 @@
           <div class="example-container">
               <h2 style="color: white;">My preferred slots</h2>
               <div cdkDropList [cdkDropListData]="preferredSlots" class="example-list" (cdkDropListDropped)="drop($event)" >
-                <div *ngFor="let item of preferredSlots; let i = index" class="example-box" cdkDrag>{{ item.day }} - {{ item.time }}<i style="margin-right: 10px;" class="fa-solid fa-bars"></i></div>
+                <div *ngFor="let item of preferredSlots; let i = index" class="example-box" cdkDrag>
+                  Day: {{mapDayToString(item.day)}}, Time: {{mapTimeToString(item.time)}}
+                  <i style="margin-right: 10px;" class="fa-solid fa-bars"></i></div>
               </div>
           </div>
             
           <div class="example-container">
               <h2 style="color: white;">All available slots</h2>
               <div cdkDropList [cdkDropListData]="generalSlots" class="example-list" (cdkDropListDropped)="drop($event)">
-                <div *ngFor="let item of generalSlots; let i = index" class="example-box" cdkDrag>{{ item.day }} - {{ item.time }}<i style="margin-right: 10px;" class="fa-solid fa-bars"></i></div>
+                <div *ngFor="let item of generalSlots; let i = index" class="example-box" cdkDrag>
+                  Day: {{mapDayToString(item.day)}}, Time: {{mapTimeToString(item.time)}}
+                  <i style="margin-right: 10px;" class="fa-solid fa-bars"></i></div>
               </div>
           </div>
       </div>

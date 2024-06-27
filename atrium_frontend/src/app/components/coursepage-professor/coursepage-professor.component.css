@@ -1,3 +1,77 @@
+/*  ALLOCATIONPAGE CSS*/
+.contentAllocation{
+    padding-left: 50px;
+    padding-top: 10px;
+    margin-top: 30px;
+    width: 100%;
+    background-color: #171A18;
+    min-height: 520px;
+
+    height: auto;
+    padding-bottom: 30px;
+}
+
+.students{
+    margin-top: 30px;
+}
+
+.tree {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 700px;
+    color: white;
+    font-size: 20px;
+}
+
+/* Details */
+details {
+    margin-bottom: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #303030;
+}
+
+details[open] {
+    background-color: #303030; /* Slightly darker shade on open */
+}
+
+/* Summary */
+summary {
+    padding: 10px;
+    cursor: pointer;
+    outline: none;
+    border-bottom: 1px solid white;
+    font-weight: bold;
+}
+
+
+
+summary:hover {
+    background-color: #595959; /* Darker shade on hover */
+}
+
+/* Nested list */
+ul {
+    padding-left: 20px;
+}
+
+/* List items */
+li {
+    margin-left: 20px;
+    list-style: none;
+}
+
+/* Apply white color to list items */
+li {
+    color: white;
+}
+
+  
+
+
+/*  COURSEPAGE CSS*/
 .content{
     margin-top: 30px;
     width: 100%;

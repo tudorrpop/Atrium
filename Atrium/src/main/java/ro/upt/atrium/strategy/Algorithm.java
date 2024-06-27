@@ -1,5 +1,9 @@
 package ro.upt.atrium.strategy;
 
 
-public abstract class Algorithm {
+import ro.upt.atrium.model.Course;
+
+public interface Algorithm {
+
+    public Course startAllocationprocess(Course course);
 }

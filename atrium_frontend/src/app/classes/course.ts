@@ -1,17 +1,18 @@
 import { Professor } from "./professor";
 import { Slot } from "./slot";
-import { User } from "./user";
 
 export class Course {
 
     courseid?: number | undefined 
     
-    algorithm: string | undefined;
     courseName: string | undefined;
-    preferencesDeadline: Date | undefined;
-    slots: Slot[] | undefined;
-
     professor: Professor | undefined;
+
+    algorithm: string | undefined;
+    preferencesDeadline: Date | undefined;
+    finalized: boolean | undefined;
+
+    slots: Slot[] | undefined;
 
     constructor(
         courseName: string,
@@ -25,3 +26,5 @@ export class Course {
         this.slots = slots
       }
 }
+
+

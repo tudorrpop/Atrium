@@ -9,15 +9,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class CSVWriter {
 
-    public static void printResult(Course course, Map<Long, ArrayList<Student>> groups){
+    public static void printResult(Course course, Map<Long, List<Student>> groups){
         try (FileWriter writer = new FileWriter("result.txt")) {
-            for (Map.Entry<Long, ArrayList<Student>> entry : groups.entrySet()) {
+            for (Map.Entry<Long, List<Student>> entry : groups.entrySet()) {
                 Long key = entry.getKey();
-                ArrayList<Student> students = entry.getValue();
+                List<Student> students = entry.getValue();
 
                 // Find the corresponding slot for the key in the course's slots
                 Slot slot = findSlotByKey(course, key);

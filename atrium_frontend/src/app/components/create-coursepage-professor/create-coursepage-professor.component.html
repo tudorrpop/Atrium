@@ -29,14 +29,14 @@
                     </div>
 
                     <div style="display: flex;" class="dates">
-                        <div class="deadline">
-                            <label class="form-label" >Preferences Deadline:</label> <br>
+                        <div style="display: flex; align-items: center;" class="deadline">
+                            <label style="font-size: 20px; margin-right: 10px; margin-top: 10px;" class="form-label" >Preferences Deadline:</label> <br>
                             <input type="date" style="width: 150px; border-radius: 5px;" [(ngModel)]="preferencesDeadline"/>
                         </div>
-                        <div style="margin-left: 45px;" class="deadline">
+                        <!-- <div style="margin-left: 45px;" class="deadline">
                             <label class="form-label" >Allocation Deadline:</label><br>
                             <input type="date" style="width: 150px; border-radius: 5px;"/>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -75,8 +75,8 @@
                                     <ng-container *ngSwitchDefault> - </ng-container>
                                 </td>
                                 <td>{{slot.capacity}}</td>
-                                <td><i class="fa-regular fa-pen-to-square" (click)="editSlot(slot.id !== undefined ? slot.id : 0)"></i></td>
-                                <td><i class="fa-solid fa-trash" (click)="removeSlot(slot.id !== undefined ? slot.id : 0)"></i></td>
+                                <td><i class="fa-regular fa-pen-to-square" (click)="editSlot(slot.slotid !== undefined ? slot.slotid : 0)"></i></td>
+                                <td><i class="fa-solid fa-trash" (click)="removeSlot(slot.slotid !== undefined ? slot.slotid : 0)"></i></td>
                               </tr>
                             </tbody>
                         </table>

@@ -1,18 +1,50 @@
 <html lang="en">
+
+
     <body>
         <app-navbar></app-navbar>
 
-        <div class="content">
+
+        <div class="contentAllocation" *ngIf="courseDTO?.finalized">
+
+            <p style="font-size: 25px; color: white;" >Course Name: {{ courseDTO?.courseName }}</p>
+            <p style="font-size: 25px; color: white;" >Teaching Professor: {{ courseDTO?.professor?.name }}</p>  
+
+            <div class="buttons">
+                <button style="margin-right: 10px;" type="button" class="btn btn-primary back" (click)="goHome()">Back</button>
+                <button style="margin-right: 10px;" type="button" class="btn btn-success start" (click)="downloadOutline()">Download Outline</button>
+                <button type="button" class="btn btn-danger delete" (click)="deleteCourse()">Delete Course</button>
+            </div>
+
+            <div class="students">
+                <ul class="tree">
+                    <details *ngFor="let group of courseDTO?.groups | keyvalue">
+                        <summary>{{ returnDayTimeGroup(group.key) }}</summary>
+                        <ul *ngIf="group.value?.length !== 0">
+                            <li *ngFor="let student of group.value; let i = index">{{ i + 1 }}. {{ student.name }}</li>
+                        </ul>
+                        <ul *ngIf="group.value?.length === 0">
+                            <li>empty slot</li>
+                        </ul>
+                    </details>                
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="content" *ngIf="!courseDTO?.finalized">
             <div class="course"> 
-                <p style="font-size: 25px; color: white;" >Course Name: {{ course?.courseName }}</p>
-                <p style="font-size: 25px; color: white;" >Teaching Professor: {{ course?.professor?.name }}</p>
-                <p style="font-size: 25px; color: white;" >Prefferences Deadline: {{ course?.preferencesDeadline | date:'dd.MM.yyyy' }}</p>
-                <p style="font-size: 25px; color: white;" [ngSwitch]="course?.algorithm">
+                <p style="font-size: 25px; color: white;" >Course Name: {{ courseDTO?.courseName }}</p>
+                <p style="font-size: 25px; color: white;" >Teaching Professor: {{ courseDTO?.professor?.name }}</p>
+                <p style="font-size: 25px; color: white;" >Prefferences Deadline: {{ courseDTO?.preferencesDeadline | date:'dd.MM.yyyy' }}</p>
+                <p style="font-size: 25px; color: white;" >Students Allocation Algorithm: {{ getAlgorithm(courseDTO?.algorithm) }}</p>
+
+                <!-- <p style="font-size: 25px; color: white;" [ngSwitch]="course?.algorithm">
                     Students Allocation Algorithm:
                     <ng-container *ngSwitchCase="'STANDARD_ALGORITHM'">Standard Algorithm</ng-container>
                     <ng-container *ngSwitchCase="'GALE_SHAPLEY_ALGORITHM'">Gale Shapley Algorithm</ng-container>
                     <ng-container *ngSwitchDefault> - No Algorithm - </ng-container>    
-                </p>
+                </p> -->
                 <p style="font-size: 25px; color: white;" >Available Slots:</p>
                 <div class="slots">
                     <div class="slot">
@@ -26,13 +58,13 @@
                               </tr>
                             </thead>
                             <tbody>
-                                <tr [hidden]="!course || !course.slots || course.slots.length !== 0">
+                                <tr [hidden]="!courseDTO || !courseDTO.slots || courseDTO.slots.length !== 0">
                                     <th scope="col">-</th>
                                     <th scope="col">-</th>
                                     <th scope="col">-</th>
                                     <th scope="col">-</th>
                                 </tr>
-                                <tr *ngFor="let slot of course?.slots; let i = index">
+                                <tr *ngFor="let slot of courseDTO?.slots; let i = index">
                                 <th scope="row">{{i + 1}}</th>
                                 <td [ngSwitch]="slot?.day">
                                     <ng-container *ngSwitchCase="'MONDAY'">Monday</ng-container>

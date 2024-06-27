@@ -24,16 +24,11 @@ public class UserController {
 
         User user = userService.getUser(email);
 
-        if (user == null)
-            System.out.println("SUNT NULL");
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping("/checkUser")
     public ResponseEntity<User> checkUser(@RequestParam String email, @RequestParam String name) {
-
-        System.out.println(email);
-        System.out.println(name);
 
         User user = userService.getUser(email);
 
@@ -47,5 +42,11 @@ public class UserController {
         }
 
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/authenticateAdminUser")
+    public ResponseEntity<Boolean> getUser(@RequestParam String username, @RequestParam String password) {
+        return new ResponseEntity<>(userService.validAdministrator(username,password), HttpStatus.OK);
     }
 }

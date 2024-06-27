@@ -28,6 +28,10 @@ import { ProfilepageComponent } from './components/profilepage/profilepage.compo
 import { HomeStudentComponent } from './components/home-student/home-student.component';
 import { AllocationPageStudentComponent } from './components/allocation-page-student/allocation-page-student.component';
 import { PopUpChoiceChangesComponent } from './components/pop-up-choice-changes/pop-up-choice-changes.component';
+import { PopUpAllocateStudentsComponent } from './components/pop-up-allocate-students/pop-up-allocate-students.component';
+import { DatePipe } from '@angular/common';
+import { AuthenticationAdminComponent } from './components/authentication-admin/authentication-admin.component';
+import { AdminPageComponent } from './components/admin-page/admin-page.component';
 
 
 @NgModule({
@@ -46,7 +50,10 @@ import { PopUpChoiceChangesComponent } from './components/pop-up-choice-changes/
     ProfilepageComponent,
     HomeStudentComponent,
     AllocationPageStudentComponent,
-    PopUpChoiceChangesComponent
+    PopUpChoiceChangesComponent,
+    PopUpAllocateStudentsComponent,
+    AuthenticationAdminComponent,
+    AdminPageComponent
   ],
 
   imports: [
@@ -66,7 +73,9 @@ import { PopUpChoiceChangesComponent } from './components/pop-up-choice-changes/
     MsalModule
   ],
 
-  providers: [ ],
+  providers: [ 
+    DatePipe,
+  ],
 
   bootstrap: [AppComponent]
 })

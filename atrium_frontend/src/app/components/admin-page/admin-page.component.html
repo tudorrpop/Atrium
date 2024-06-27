@@ -1,0 +1,45 @@
+<html lang="en">
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark"style="background-color: #343D47;">
+            <div class="container-fluid">
+              <img width="130px" src="../../../assets/logo/logo_svg.svg" alt="Atrium Logo" >
+          
+              <!-- Right-aligned buttons -->
+              <div class="navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" (click)="goDashboard()">  
+                        <i class="fa-regular fa-arrow-right-from-bracket" style="font-size: 20px;"></i>
+                        <span style="font-family: 'Arial', sans-serif; font-size: 20px; margin-right: 20px;"> Log out</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          
+        <div class="content">
+            <!-- Headerul continutului principal -->
+            <div class="header">
+                <p style="color: white; font-size: 35px; margin-left: 20px; margin-top: 30px; display: inline-block;">Courses you can manage</p>
+                <!-- <button type="button" style="right: 0; position: absolute; margin-top: 25px; margin-right: 50px; " class="btn btn-outline-secondary" (click) = "openCourseCreationDialiog()">Create Course</button>         -->
+            </div>
+
+            <!-- Containerul de carduri -->
+            <div class="courseslist">  
+                <p class="no-courses-message" [hidden]="courses.length !== 0">No courses to be displayed ..</p>
+                <div *ngFor="let course of courses" class="course-row row align-items-center mb-2">
+                    <div class="col-4 course-name">
+                        Course name: {{ course?.courseName }}
+                    </div>
+                    <div class="col-4 professor-name">
+                        Teaching Professor: {{ course?.professor?.name }}
+                    </div>
+                    <div class="col-4 text-right">
+                        <button type="button" class="btn btn-danger" (click)="deleteCourse(course?.courseid)">Delete</button>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </body>
+</html>

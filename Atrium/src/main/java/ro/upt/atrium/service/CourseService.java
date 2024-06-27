@@ -16,23 +16,23 @@ public class CourseService {
     private final CourseRepository courseRepository;
 
     @Autowired
-    public CourseService(CourseRepository courseRepository){
+    public CourseService(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
 
-    public Course createCourse(Course course){
+    public Course createCourse(Course course) {
         return courseRepository.save(course);
     }
 
-    public List<Course> getAllCourses(){
+    public List<Course> getAllCourses() {
         return courseRepository.findAll();
     }
 
-    public Course getCourse(Long courseid){
+    public Course getCourse(Long courseid) {
         return courseRepository.findCourseByCourseid(courseid);
     }
 
-    public void saveCourse(Course course){
+    public void saveCourse(Course course) {
         courseRepository.save(course);
     }
 
